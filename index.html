@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PediaX - Enciclopedia Adulta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: #1a1a1a;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        .search-box {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 50px;
+            padding: 15px 25px;
+            width: 100%;
+            font-size: 1.2em;
+            color: white;
+            outline: none;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        .search-box:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255,107,107,0.2);
+        }
+        .search-box::placeholder {
+            color: #666;
+        }
+        .button {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .button:hover {
+            transform: scale(1.02);
+        }
+        .result-card {
+            background: #2a2a2a;
+            border-radius: 16px;
+            padding: 25px;
+            border-left: 4px solid #ff6b6b;
+            display: none;
+        }
+        .result-card.show {
+            display: block;
+        }
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .emoji {
+            font-size: 2em;
+        }
+        .query-text {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+        .answer-text {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        .sources {
+            font-size: 0.9em;
+            color: #888;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+        .source-tag {
+            background: #333;
+            padding: 5px 10px;
+            border-radius: 12px;
+            color: #4ecdc4;
+        }
+        .confidence {
+            display: inline-block;
+            background: #333;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-left: 10px;
+            font-size: 0.9em;
+        }
+        .examples {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .example-btn {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: #888;
+            padding: 8px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+        .example-btn:hover {
+            border-color: #ff6b6b;
+            color: white;
+        }
+        .error-message {
+            background: #2a1a1a;
+            border-left: 4px solid #ff4444;
+            padding: 20px;
+            border-radius: 8px;
+            color: #ff8888;
+            display: none;
+        }
+        .loading {
+            text-align: center;
+            color: #888;
+            padding: 20px;
+            display: none;
+        }
+        .footer {
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 PediaX</h1>
+        <div class="subtitle">Pregunta sobre cualquier actriz o película</div>
+        
+        <div style="position: relative;">
+            <input type="text" class="search-box" id="searchInput" placeholder="Ej: Lisa Ann, Brandi Love, Riley Reid...">
+        </div>
+        
+        <button class="button" id="searchButton">🔍 Buscar</button>
+        
+        <div class="loading" id="loading">Buscando en fuentes...</div>
+        
+        <div class="error-message" id="errorMessage"></div>
+        
+        <div class="result-card" id="resultCard">
+            <div class="result-header">
+                <span class="emoji" id="resultEmoji">🟢</span>
+                <span class="query-text" id="resultQuery"></span>
+            </div>
+            <div class="answer-text" id="resultAnswer"></div>
+            <div class="sources" id="resultSources"></div>
+        </div>
+        
+        <div class="examples">
+            <span class="example-btn" onclick="searchExample('Lisa Ann')">Lisa Ann</span>
+            <span class="example-btn" onclick="searchExample('Brandi Love')">Brandi Love</span>
+            <span class="example-btn" onclick="searchExample('Riley Reid')">Riley Reid</span>
+            <span class="example-btn" onclick="searchExample('Mia Khalifa')">Mia Khalifa</span>
+        </div>
+        
+        <div class="footer">
+            ⚡ Sin IA • Fuentes verificadas • 100% gratis
+        </div>
+    </div>
+
+    <script>
+        // Configuración - ¡CAMBIA ESTA URL POR LA TUYA!
+        const API_URL = 'https://pediax-api.casitadorada69.workers.dev';
+        
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const loading = document.getElementById('loading');
+        const errorMessage = document.getElementById('errorMessage');
+        const resultCard = document.getElementById('resultCard');
+        const resultEmoji = document.getElementById('resultEmoji');
+        const resultQuery = document.getElementById('resultQuery');
+        const resultAnswer = document.getElementById('resultAnswer');
+        const resultSources = document.getElementById('resultSources');
+
+        // Función para buscar
+        async function buscar() {
+            const query = searchInput.value.trim();
+            if (!query || query.length < 3) {
+                mostrarError('Escribe al menos 3 caracteres');
+                return;
+            }
+
+            // Mostrar loading
+            loading.style.display = 'block';
+            errorMessage.style.display = 'none';
+            resultCard.classList.remove('show');
+
+            try {
+                // Llamar a la API
+                const response = await fetch(`${API_URL}/buscar?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Error en la búsqueda');
+                }
+
+                // Mostrar resultado
+                mostrarResultado(data, query);
+
+            } catch (error) {
+                mostrarError('Error al conectar con la API. Intenta de nuevo.');
+                console.error('Error:', error);
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        // Función para mostrar resultado
+        function mostrarResultado(data, query) {
+            // Emoji según confianza
+            let emoji = '🟢';
+            if (data.confianza < 0.5) emoji = '🔴';
+            else if (data.confianza < 0.8) emoji = '🟡';
+            
+            resultEmoji.textContent = emoji;
+            resultQuery.textContent = query;
+            
+            // Construir respuesta
+            let respuesta = data.mensaje || `Información sobre ${query}`;
+            respuesta += ` <span class="confidence">Confianza: ${Math.round(data.confianza * 100)}%</span>`;
+            resultAnswer.innerHTML = respuesta;
+            
+            // Fuentes
+            if (data.fuentes && data.fuentes.length > 0) {
+                resultSources.innerHTML = data.fuentes.map(f => 
+                    `<span class="source-tag">${f}</span>`
+                ).join('');
+            } else {
+                resultSources.innerHTML = '<span class="source-tag">IAFD</span><span class="source-tag">Boobpedia</span>';
+            }
+            
+            resultCard.classList.add('show');
+        }
+
+        // Función para mostrar error
+        function mostrarError(msg) {
+            errorMessage.textContent = msg;
+            errorMessage.style.display = 'block';
+            resultCard.classList.remove('show');
+        }
+
+        // Función para ejemplos
+        function searchExample(query) {
+            searchInput.value = query;
+            buscar();
+        }
+
+        // Event listeners
+        searchButton.addEventListener('click', buscar);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') buscar();
+        });
+
+        console.log('Página lista. API configurada en:', API_URL);
+    </script>
+</body>
+</html>
