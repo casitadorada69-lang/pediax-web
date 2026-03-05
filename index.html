@@ -108,6 +108,7 @@
             line-height: 1.6;
             margin-bottom: 20px;
             color: #ddd;
+            white-space: pre-line;
         }
         .sources {
             font-size: 0.9em;
@@ -172,6 +173,11 @@
             color: #666;
             font-size: 0.8em;
         }
+        .detail-item {
+            margin: 8px 0;
+            padding-left: 10px;
+            border-left: 2px solid #4ecdc4;
+        }
     </style>
 </head>
 <body>
@@ -180,7 +186,7 @@
         <div class="subtitle">Pregunta sobre cualquier actriz o película</div>
         
         <div style="position: relative;">
-            <input type="text" class="search-box" id="searchInput" placeholder="Ej: Lisa Ann, Brandi Love, Riley Reid...">
+            <input type="text" class="search-box" id="searchInput" placeholder="Ej: Lisa Ann, ¿Qué estatura tiene Rita Daniels?, ¿Cuántos años tiene Brandi Love?">
         </div>
         
         <button class="button" id="searchButton">🔍 Buscar</button>
@@ -202,7 +208,8 @@
             <span class="example-btn" onclick="searchExample('Lisa Ann')">Lisa Ann</span>
             <span class="example-btn" onclick="searchExample('Brandi Love')">Brandi Love</span>
             <span class="example-btn" onclick="searchExample('Riley Reid')">Riley Reid</span>
-            <span class="example-btn" onclick="searchExample('Mia Khalifa')">Mia Khalifa</span>
+            <span class="example-btn" onclick="searchExample('¿Qué estatura tiene Rita Daniels?')">¿Estatura Rita Daniels?</span>
+            <span class="example-btn" onclick="searchExample('¿Cuántos años tiene Deauxma?')">¿Edad Deauxma?</span>
         </div>
         
         <div class="footer">
@@ -211,9 +218,10 @@
     </div>
 
     <script>
-        // Configuración - ¡CAMBIA ESTA URL POR LA TUYA!
+        // ===== CONFIGURACIÓN - ¡CAMBIA ESTA URL POR LA TUYA! =====
         const API_URL = 'https://pediax-api.casitadorada69.workers.dev';
-        
+        // ========================================================
+
         const searchInput = document.getElementById('searchInput');
         const searchButton = document.getElementById('searchButton');
         const loading = document.getElementById('loading');
@@ -224,7 +232,6 @@
         const resultAnswer = document.getElementById('resultAnswer');
         const resultSources = document.getElementById('resultSources');
 
-        // Función para buscar
         async function buscar() {
             const query = searchInput.value.trim();
             if (!query || query.length < 3) {
@@ -232,13 +239,11 @@
                 return;
             }
 
-            // Mostrar loading
             loading.style.display = 'block';
             errorMessage.style.display = 'none';
             resultCard.classList.remove('show');
 
             try {
-                // Llamar a la API
                 const response = await fetch(`${API_URL}/buscar?q=${encodeURIComponent(query)}`);
                 const data = await response.json();
 
@@ -246,7 +251,6 @@
                     throw new Error(data.error || 'Error en la búsqueda');
                 }
 
-                // Mostrar resultado
                 mostrarResultado(data, query);
 
             } catch (error) {
@@ -257,9 +261,8 @@
             }
         }
 
-        // Función para mostrar resultado
         function mostrarResultado(data, query) {
-            // Emoji según confianza
+            // Determinar emoji según confianza
             let emoji = '🟢';
             if (data.confianza < 0.5) emoji = '🔴';
             else if (data.confianza < 0.8) emoji = '🟡';
@@ -267,12 +270,10 @@
             resultEmoji.textContent = emoji;
             resultQuery.textContent = query;
             
-            // Construir respuesta
-            let respuesta = data.mensaje || `Información sobre ${query}`;
-            respuesta += ` <span class="confidence">Confianza: ${Math.round(data.confianza * 100)}%</span>`;
-            resultAnswer.innerHTML = respuesta;
+            // Usar la respuesta natural de la API
+            resultAnswer.textContent = data.respuesta || `Información sobre ${query}`;
             
-            // Fuentes
+            // Mostrar fuentes
             if (data.fuentes && data.fuentes.length > 0) {
                 resultSources.innerHTML = data.fuentes.map(f => 
                     `<span class="source-tag">${f}</span>`
@@ -284,27 +285,23 @@
             resultCard.classList.add('show');
         }
 
-        // Función para mostrar error
         function mostrarError(msg) {
             errorMessage.textContent = msg;
             errorMessage.style.display = 'block';
             resultCard.classList.remove('show');
         }
 
-        // Función para ejemplos
         function searchExample(query) {
             searchInput.value = query;
             buscar();
         }
 
-        // Event listeners
         searchButton.addEventListener('click', buscar);
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') buscar();
         });
 
-        console.log('Página lista. API configurada en:', API_URL);
+        console.log('✅ Página conectada a API:', API_URL);
     </script>
 </body>
-
 </html>
