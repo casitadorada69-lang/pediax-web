@@ -230,6 +230,27 @@
             margin-bottom: 12px;
         }
 
+        /* ── Botón Nueva búsqueda ── */
+        .btn-nueva {
+            display: none;
+            background: transparent;
+            border: 1px solid #444;
+            color: #888;
+            border-radius: 50px;
+            padding: 10px 24px;
+            font-size: 0.95em;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+        .btn-nueva:hover {
+            border-color: #ff6b6b;
+            color: white;
+        }
+        .btn-nueva.show { display: block; }
+
         .examples {
             margin-top: 30px;
             display: flex;
@@ -284,13 +305,13 @@
     <div class="loading" id="loading">🔍 Buscando en fuentes especializadas...</div>
     <div class="error-message" id="errorMessage"></div>
 
-    <!-- Respuesta editorial (preguntas generales) -->
+    <!-- Respuesta editorial -->
     <div class="editorial-card" id="editorialCard">
         <div class="editorial-badge">✍️ Respuesta editorial</div>
         <div class="answer-text" id="editorialAnswer"></div>
     </div>
 
-    <!-- Resultado normal de la API -->
+    <!-- Resultado normal -->
     <div class="result-card" id="resultCard">
         <div class="result-header">
             <span class="emoji" id="resultEmoji">🟢</span>
@@ -317,6 +338,9 @@
         </div>
     </div>
 
+    <!-- Botón Nueva búsqueda -->
+    <button class="btn-nueva" id="btnNueva" onclick="nuevaBusqueda()">🔄 Nueva búsqueda</button>
+
     <div class="examples">
         <span class="example-btn" onclick="searchExample('Mia Malkova')">Mia Malkova</span>
         <span class="example-btn" onclick="searchExample('¿Cuánto mide Alexis Texas?')">¿Mide Alexis Texas?</span>
@@ -333,7 +357,6 @@
 const API_URL = 'https://pediax-api.casitadorada69.workers.dev';
 
 // ─── RESPUESTAS EDITORIALES ───────────────────────────────────────────────────
-// Para agregar una nueva: copia un bloque y cambia la clave y el texto.
 const RESPUESTAS_EDITORIALES = {
     'epoca de oro': `🎬 **La Época de Oro del Porno (1969–1984)**\n\nSe conoce como la "Época de Oro" al período en que las películas para adultos se proyectaban en cines convencionales y tenían presupuestos, guiones y producción cinematográfica real.\n\n📅 Comenzó con **Deep Throat** (1972) de Gerard Damiano, la primera película adulta en llegar a salas mainstream de EE.UU., recaudando más de $600 millones.\n\n🎥 Otras películas icónicas de la era:\n• Behind the Green Door (1972)\n• The Devil in Miss Jones (1973)\n• Debbie Does Dallas (1978)\n• Caligula (1979)\n\n🔚 La era terminó con la masificación del VHS en los 80, que llevó el contenido al hogar y eliminó la necesidad de producciones cinematográficas.`,
 
@@ -375,7 +398,6 @@ async function buscar() {
         return;
     }
 
-    // Limpiar estado
     ocultarTodo();
     document.getElementById('loading').style.display = 'block';
     consultaPendiente = query;
@@ -388,7 +410,6 @@ async function buscar() {
         return;
     }
 
-    // Consultar la API
     try {
         const response = await fetch(`${API_URL}/buscar?q=${encodeURIComponent(query)}`);
         const data = await response.json();
@@ -413,11 +434,9 @@ function mostrarResultado(data, query) {
         ? `${query} → ${data.consulta_interpretada}`
         : query;
 
-    // Formatear respuesta con negritas
     const respuestaFormateada = (data.respuesta || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     document.getElementById('resultAnswer').innerHTML = respuestaFormateada;
 
-    // Fuentes + URL
     let sourcesHTML = '';
     if (data.fuentes?.length) {
         sourcesHTML += data.fuentes.map(f => `<span class="source-tag">${f}</span>`).join('');
@@ -428,10 +447,11 @@ function mostrarResultado(data, query) {
     document.getElementById('resultSources').innerHTML = sourcesHTML;
     document.getElementById('resultCard').classList.add('show');
 
-    // Mostrar formulario de experto si es necesario
     if (data.necesita_experto) {
         document.getElementById('expertCard').classList.add('show');
     }
+
+    document.getElementById('btnNueva').classList.add('show');
 }
 
 // ─── MOSTRAR RESPUESTA EDITORIAL ─────────────────────────────────────────────
@@ -439,19 +459,24 @@ function mostrarEditorial(texto) {
     const formateado = texto.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     document.getElementById('editorialAnswer').innerHTML = formateado;
     document.getElementById('editorialCard').classList.add('show');
+    document.getElementById('btnNueva').classList.add('show');
+}
+
+// ─── NUEVA BÚSQUEDA ───────────────────────────────────────────────────────────
+function nuevaBusqueda() {
+    ocultarTodo();
+    document.getElementById('searchInput').value = '';
+    document.getElementById('searchInput').focus();
 }
 
 // ─── FORMULARIO DE EXPERTO ────────────────────────────────────────────────────
 function seleccionarContacto(tipo) {
     tipoContacto = tipo;
-
-    // Actualizar botones
     ['email', 'whatsapp', 'telegram'].forEach(t => {
         document.getElementById(`opt-${t}`).classList.remove('active');
     });
     document.getElementById(`opt-${tipo}`).classList.add('active');
 
-    // Mostrar input con placeholder correcto
     const input = document.getElementById('expertInput');
     const submit = document.getElementById('expertSubmit');
     input.classList.add('show');
@@ -474,7 +499,6 @@ async function enviarContacto() {
         return;
     }
 
-    // Enviar a la API (el Worker notificará por Telegram)
     try {
         await fetch(`${API_URL}/experto`, {
             method: 'POST',
@@ -486,11 +510,9 @@ async function enviarContacto() {
             })
         });
     } catch (e) {
-        // Aunque falle, mostrar éxito al usuario
         console.log('Error enviando:', e);
     }
 
-    // Mostrar éxito
     document.getElementById('expertInput').style.display = 'none';
     document.getElementById('expertSubmit').style.display = 'none';
     document.getElementById('expertSuccess').classList.add('show');
@@ -505,6 +527,7 @@ function ocultarTodo() {
     document.getElementById('expertSuccess').classList.remove('show');
     document.getElementById('expertInput').classList.remove('show');
     document.getElementById('expertSubmit').classList.remove('show');
+    document.getElementById('btnNueva').classList.remove('show');
     tipoContacto = null;
 }
 
@@ -525,3 +548,6 @@ document.getElementById('searchInput').addEventListener('keypress', (e) => {
 </script>
 </body>
 </html>
+```
+
+---
