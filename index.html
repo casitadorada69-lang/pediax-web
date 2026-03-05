@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PediaX - Enciclopedia Adulta</title>
+    <title>🔞 PediaX - Enciclopedia Adulta</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -151,7 +151,7 @@
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .expert-option {
             background: #2a2a2a;
@@ -167,6 +167,11 @@
             border-color: #4ecdc4;
             color: #4ecdc4;
             background: #1a2e2e;
+        }
+        .privacy-note {
+            font-size: 0.78em;
+            color: #555;
+            margin-bottom: 12px;
         }
         .expert-input {
             background: #2a2a2a;
@@ -251,14 +256,25 @@
         }
         .btn-nueva.show { display: block; }
 
-        .examples {
+        /* ── Búsquedas recientes ── */
+        .recientes {
             margin-top: 30px;
+        }
+        .recientes-titulo {
+            font-size: 0.8em;
+            color: #555;
+            margin-bottom: 10px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .recientes-lista {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
         }
-        .example-btn {
+        .reciente-btn {
             background: #2a2a2a;
             border: 1px solid #444;
             color: #888;
@@ -268,7 +284,17 @@
             font-size: 0.9em;
             transition: all 0.2s;
         }
-        .example-btn:hover { border-color: #ff6b6b; color: white; }
+        .reciente-btn:hover {
+            border-color: #ff6b6b;
+            color: white;
+        }
+        .recientes-vacio {
+            text-align: center;
+            color: #444;
+            font-size: 0.85em;
+            padding: 10px 0;
+        }
+
         .error-message {
             background: #2a1a1a;
             border-left: 4px solid #ff4444;
@@ -286,15 +312,16 @@
         }
         .footer {
             margin-top: 20px;
-            color: #666;
-            font-size: 0.8em;
+            color: #555;
+            font-size: 0.78em;
             text-align: center;
+            line-height: 1.8;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🎬 PediaX</h1>
+    <h1>🔞 PediaX</h1>
     <div class="subtitle">Enciclopedia del entretenimiento para adultos</div>
 
     <input type="text" class="search-box" id="searchInput"
@@ -330,6 +357,7 @@
             <div class="expert-option" onclick="seleccionarContacto('whatsapp')" id="opt-whatsapp">💬 WhatsApp</div>
             <div class="expert-option" onclick="seleccionarContacto('telegram')" id="opt-telegram">✈️ Telegram</div>
         </div>
+        <div class="privacy-note">🔒 No recopilamos tus datos. Solo los usamos para enviarte la respuesta.</div>
         <input type="text" class="expert-input" id="expertInput" placeholder="">
         <button class="expert-submit" id="expertSubmit" onclick="enviarContacto()">📩 Enviar pregunta al experto</button>
         <div class="expert-success" id="expertSuccess">
@@ -341,20 +369,44 @@
     <!-- Botón Nueva búsqueda -->
     <button class="btn-nueva" id="btnNueva" onclick="nuevaBusqueda()">🔄 Nueva búsqueda</button>
 
-    <div class="examples">
-        <span class="example-btn" onclick="searchExample('Mia Malkova')">Mia Malkova</span>
-        <span class="example-btn" onclick="searchExample('¿Cuánto mide Alexis Texas?')">¿Mide Alexis Texas?</span>
-        <span class="example-btn" onclick="searchExample('Sally Dangelo')">Sally D'Angelo</span>
-        <span class="example-btn" onclick="searchExample('Deep Throat 1972')">Deep Throat</span>
-        <span class="example-btn" onclick="searchExample('Brazzers')">Brazzers</span>
-        <span class="example-btn" onclick="searchExample('epoca de oro del porno')">Época de oro</span>
+    <!-- Búsquedas recientes -->
+    <div class="recientes" id="recientes">
+        <div class="recientes-titulo">🕐 Búsquedas recientes</div>
+        <div class="recientes-lista" id="recientesLista"></div>
     </div>
 
-    <div class="footer">⚡ Sin IA • Fuentes verificadas • 100% gratis</div>
+    <div class="footer">
+        ⚡ Sin IA &nbsp;•&nbsp; Fuentes verificadas &nbsp;•&nbsp; 100% gratis &nbsp;•&nbsp; 🔒 No recopilamos tus datos
+    </div>
 </div>
 
 <script>
 const API_URL = 'https://pediax-api.casitadorada69.workers.dev';
+const MAX_RECIENTES = 6;
+
+// ─── BÚSQUEDAS RECIENTES ──────────────────────────────────────────────────────
+function guardarReciente(query) {
+    let recientes = JSON.parse(localStorage.getItem('pediax_recientes') || '[]');
+    recientes = recientes.filter(r => r.toLowerCase() !== query.toLowerCase());
+    recientes.unshift(query);
+    recientes = recientes.slice(0, MAX_RECIENTES);
+    localStorage.setItem('pediax_recientes', JSON.stringify(recientes));
+    renderizarRecientes();
+}
+
+function renderizarRecientes() {
+    const lista = document.getElementById('recientesLista');
+    const recientes = JSON.parse(localStorage.getItem('pediax_recientes') || '[]');
+
+    if (recientes.length === 0) {
+        lista.innerHTML = '<div class="recientes-vacio">Tus búsquedas recientes aparecerán aquí</div>';
+        return;
+    }
+
+    lista.innerHTML = recientes.map(r =>
+        `<span class="reciente-btn" onclick="searchExample('${r.replace(/'/g, "\\'")}')">${r}</span>`
+    ).join('');
+}
 
 // ─── RESPUESTAS EDITORIALES ───────────────────────────────────────────────────
 const RESPUESTAS_EDITORIALES = {
@@ -373,7 +425,6 @@ const RESPUESTAS_EDITORIALES = {
     'actriz mas tiempo': `🏆 **Actrices con más tiempo en la industria**\n\nAlgunas de las carreras más largas documentadas:\n\n• **Marilyn Chambers** — Activa desde 1972 hasta los 2000s (más de 30 años)\n• **Nina Hartley** — Activa desde 1984, sigue activa (más de 40 años) 🔴 récord vigente\n• **Veronica Vera** — Pionera de los 70s con carrera extendida\n• **Dee** — Activa en el mercado europeo por décadas\n\n🥇 **Nina Hartley** es considerada la actriz con la carrera activa más larga documentada en la industria mainstream estadounidense.\n\n💬 ¿Quieres información detallada sobre alguna de ellas?`
 };
 
-// ─── DETECCIÓN DE PREGUNTA EDITORIAL ─────────────────────────────────────────
 function detectarEditorial(query) {
     const q = query.toLowerCase();
     if (q.includes('epoca de oro') || q.includes('época de oro') || q.includes('golden age')) return 'epoca de oro';
@@ -402,10 +453,10 @@ async function buscar() {
     document.getElementById('loading').style.display = 'block';
     consultaPendiente = query;
 
-    // Verificar si es pregunta editorial
     const claveEditorial = detectarEditorial(query);
     if (claveEditorial && RESPUESTAS_EDITORIALES[claveEditorial]) {
         document.getElementById('loading').style.display = 'none';
+        guardarReciente(query);
         mostrarEditorial(RESPUESTAS_EDITORIALES[claveEditorial]);
         return;
     }
@@ -414,6 +465,7 @@ async function buscar() {
         const response = await fetch(`${API_URL}/buscar?q=${encodeURIComponent(query)}`);
         const data = await response.json();
         if (!response.ok) throw new Error(data.error || 'Error en la búsqueda');
+        guardarReciente(query);
         mostrarResultado(data, query);
     } catch (error) {
         mostrarError('Error al conectar con la API. Intenta de nuevo.');
@@ -545,10 +597,11 @@ document.getElementById('searchButton').addEventListener('click', buscar);
 document.getElementById('searchInput').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') buscar();
 });
+
+// Inicializar búsquedas recientes al cargar
+renderizarRecientes();
 </script>
 </body>
 </html>
 ```
-
----
 
