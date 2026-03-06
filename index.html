@@ -565,8 +565,8 @@ async function enviarContacto() {
         console.log('Error enviando:', e);
     }
 
-    document.getElementById('expertInput').style.display = 'none';
-    document.getElementById('expertSubmit').style.display = 'none';
+    document.getElementById('expertInput').classList.remove('show');
+    document.getElementById('expertSubmit').classList.remove('show');
     document.getElementById('expertSuccess').classList.add('show');
 }
 
@@ -604,4 +604,5 @@ renderizarRecientes();
 </body>
 </html>
 ```
+
 
