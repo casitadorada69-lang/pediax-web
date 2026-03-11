@@ -118,23 +118,23 @@
         .url-link { font-size: 0.8em; color: #666; text-decoration: none; }
         .url-link:hover { color: #4ecdc4; }
 
-        .expert-card { background: #2a1a1a; border: 1px solid #5a2a2a; border-radius: 16px; padding: 25px; display: none; margin-bottom: 20px; }
+        .expert-card { background: #1a2a2a; border: 1px solid #2a5a5a; border-radius: 16px; padding: 25px; display: none; margin-bottom: 20px; }
         .expert-card.show { display: block; }
         .expert-title { font-size: 1.1em; font-weight: bold; color: #ff3333; margin-bottom: 8px; }
         .expert-subtitle { font-size: 0.9em; color: #888; margin-bottom: 20px; }
         .expert-options { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
-        .expert-option { background: #3a2020; border: 1px solid #5a3030; border-radius: 50px; padding: 8px 16px; cursor: pointer; font-size: 0.9em; color: #aaa; transition: all 0.2s; }
-        .expert-option.active { border-color: #ff3333; color: #ff3333; background: #3a1a1a; }
+        .expert-option { background: #1e3333; border: 1px solid #2a5a5a; border-radius: 50px; padding: 8px 16px; cursor: pointer; font-size: 0.9em; color: #aaa; transition: all 0.2s; }
+        .expert-option.active { border-color: #4ecdc4; color: #4ecdc4; background: #1a2e2e; }
         .privacy-note { font-size: 0.78em; color: #555; margin-bottom: 12px; }
         .expert-input-wrapper { position: relative; }
-        .expert-input { background: #3a2020; border: 1px solid #5a3030; border-radius: 12px; padding: 12px 45px 12px 16px; width: 100%; font-size: 1em; color: white; outline: none; margin-bottom: 12px; display: none; }
+        .expert-input { background: #1e3333; border: 1px solid #2a5a5a; border-radius: 12px; padding: 12px 45px 12px 16px; width: 100%; font-size: 1em; color: white; outline: none; margin-bottom: 12px; display: none; }
         .expert-input.show { display: block; }
         .expert-input:focus { border-color: #ff3333; }
         .expert-input::placeholder { color: #666; }
         .expert-img-btn { position: absolute; right: 12px; top: 12px; background: none; border: none; cursor: pointer; color: #666; font-size: 1.1em; transition: color 0.2s; display: none; }
         .expert-img-btn.show { display: block; }
         .expert-img-btn:hover { color: #ff3333; }
-        .expert-img-preview { display: none; background: #3a2020; border: 1px solid #5a3030; border-radius: 12px; padding: 10px 15px; margin-bottom: 12px; font-size: 0.85em; color: #888; align-items: center; gap: 10px; }
+        .expert-img-preview { display: none; background: #1e3333; border: 1px solid #2a5a5a; border-radius: 12px; padding: 10px 15px; margin-bottom: 12px; font-size: 0.85em; color: #888; align-items: center; gap: 10px; }
         .expert-img-preview.show { display: flex; }
         .expert-img-preview img { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; }
         .expert-submit { background: #cc2200; color: white; border: none; border-radius: 50px; padding: 12px 24px; font-size: 1em; font-weight: bold; cursor: pointer; width: 100%; transition: opacity 0.2s, transform 0.2s; display: none; }
@@ -375,7 +375,7 @@ function seleccionarContacto(tipo) {
     const submit = document.getElementById('expertSubmit');
     const imgBtn = document.getElementById('expertImgBtn');
     input.classList.add('show'); submit.classList.add('show'); imgBtn.classList.add('show');
-    const placeholders = { email: 'Tu correo electrónico', whatsapp: 'Tu número de WhatsApp (con código de país, ej: +57 300 000 0000)', telegram: 'Tu usuario de Telegram (ej: @tunombre)' };
+    const placeholders = { email: 'Tu correo electrónico', whatsapp: 'Tu número de WhatsApp (con código de país, ej: +57 300 000 0000)', telegram: 'Usuario de Telegram (@tunombre) o teléfono (con código de país, ej: +57 300 000 0000)' };
     input.placeholder = placeholders[tipo];
     input.value = ''; input.focus();
 }
