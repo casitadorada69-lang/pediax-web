@@ -27,62 +27,20 @@
             border: 1px solid #333;
             position: relative;
         }
-
-        /* ── Menú superior ── */
-        .top-left {
-            position: absolute;
-            top: 18px;
-            left: 24px;
-        }
-        .top-left a {
-            color: #555;
-            font-size: 0.75em;
-            text-decoration: none;
-            letter-spacing: 0.5px;
-            transition: color 0.2s;
-        }
-        .top-left a:hover { color: #ff6b6b; }
-        .top-right {
-            position: absolute;
-            top: 18px;
-            right: 24px;
-            display: flex;
-            gap: 14px;
-            align-items: center;
-        }
-        .top-right a {
-            color: #555;
-            font-size: 0.75em;
-            text-decoration: none;
-            letter-spacing: 0.5px;
-            transition: color 0.2s;
-        }
-        .top-right a:hover { color: #ff6b6b; }
+        .top-left { position: absolute; top: 18px; left: 24px; }
+        .top-left a { color: #555; font-size: 0.75em; text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+        .top-left a:hover { color: #ff4444; }
+        .top-right { position: absolute; top: 18px; right: 24px; display: flex; gap: 14px; align-items: center; }
+        .top-right a { color: #555; font-size: 0.75em; text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+        .top-right a:hover { color: #ff4444; }
         .top-right span { color: #333; font-size: 0.75em; }
 
-        h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        h1 a {
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-        }
-        .subtitle {
-            text-align: center;
-            color: #888;
-            margin-bottom: 40px;
-            font-size: 1.1em;
-        }
+        h1 { font-size: 3em; margin-bottom: 10px; text-align: center; }
+        h1 a { color: #ff3333; text-decoration: none; }
 
-        /* ── Cajón con ícono imagen ── */
-        .search-wrapper {
-            position: relative;
-            margin-bottom: 12px;
-        }
+        .subtitle { text-align: center; color: #888; margin-bottom: 40px; font-size: 1.1em; }
+
+        .search-wrapper { position: relative; margin-bottom: 12px; }
         .search-box {
             background: #2a2a2a;
             border: 1px solid #444;
@@ -94,10 +52,7 @@
             outline: none;
             transition: all 0.3s;
         }
-        .search-box:focus {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 0 3px rgba(255,107,107,0.2);
-        }
+        .search-box:focus { border-color: #ff3333; box-shadow: 0 0 0 3px rgba(255,51,51,0.15); }
         .search-box::placeholder { color: #555; font-style: italic; }
         .img-attach-btn {
             position: absolute;
@@ -112,72 +67,50 @@
             transition: color 0.2s;
             padding: 4px;
         }
-        .img-attach-btn:hover { color: #ff6b6b; }
+        .img-attach-btn:hover { color: #ff3333; }
 
-        /* Preview imagen */
-        .image-preview {
-            display: none;
-            background: #2a2a2a;
-            border: 1px solid #444;
-            border-radius: 12px;
-            padding: 10px 15px;
-            margin-bottom: 12px;
-            font-size: 0.85em;
-            color: #888;
-            align-items: center;
-            gap: 10px;
-        }
+        .image-preview { display: none; background: #2a2a2a; border: 1px solid #444; border-radius: 12px; padding: 10px 15px; margin-bottom: 12px; font-size: 0.85em; color: #888; align-items: center; gap: 10px; }
         .image-preview.show { display: flex; }
         .image-preview img { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; }
         .remove-img { margin-left: auto; cursor: pointer; color: #ff4444; font-size: 1.1em; }
 
-        /* ── Dos botones ── */
-        .buttons-row {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 30px;
-            margin-top: 12px;
-        }
-        .button {
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 15px 20px;
-            font-size: 1.05em;
-            font-weight: bold;
-            cursor: pointer;
-            flex: 1;
-            transition: transform 0.2s;
-        }
-        .button:hover { transform: scale(1.02); }
-        .button-expert {
-            background: linear-gradient(135deg, #8b1a1a, #ff6b6b);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 15px 20px;
-            font-size: 1.05em;
-            font-weight: bold;
-            cursor: pointer;
-            flex: 1;
-            transition: transform 0.2s;
-        }
-        .button-expert:hover { transform: scale(1.02); }
+        .buttons-row { display: flex; gap: 12px; margin-bottom: 30px; margin-top: 12px; }
 
-        /* ── Resultado ── */
-        .result-card {
-            background: #2a2a2a;
-            border-radius: 16px;
-            padding: 25px;
-            border-left: 4px solid #ff6b6b;
-            display: none;
-            margin-bottom: 20px;
+        /* Botón Buscar — azul sólido */
+        .button {
+            background: #4ecdc4;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 20px;
+            font-size: 1.05em;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+            transition: opacity 0.2s, transform 0.2s;
         }
+        .button:hover { opacity: 0.88; transform: scale(1.02); }
+
+        /* Botón Experto — rojo sólido */
+        .button-expert {
+            background: #cc2200;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 20px;
+            font-size: 1.05em;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .button-expert:hover { opacity: 0.88; transform: scale(1.02); }
+
+        .result-card { background: #2a2a2a; border-radius: 16px; padding: 25px; border-left: 4px solid #ff3333; display: none; margin-bottom: 20px; }
         .result-card.show { display: block; }
         .result-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
         .emoji { font-size: 2em; }
-        .query-text { font-size: 1.4em; font-weight: bold; color: #ff6b6b; }
+        .query-text { font-size: 1.4em; font-weight: bold; color: #ff3333; }
         .answer-text { font-size: 1.1em; line-height: 1.8; margin-bottom: 20px; color: #ddd; white-space: pre-line; }
         .answer-text strong { color: #fff; font-weight: bold; }
         .sources { font-size: 0.9em; color: #888; display: flex; gap: 15px; flex-wrap: wrap; border-top: 1px solid #444; padding-top: 15px; align-items: center; }
@@ -185,138 +118,37 @@
         .url-link { font-size: 0.8em; color: #666; text-decoration: none; }
         .url-link:hover { color: #4ecdc4; }
 
-        /* ── Formulario experto ROJO ── */
-        .expert-card {
-            background: #2a1a1a;
-            border: 1px solid #5a2a2a;
-            border-radius: 16px;
-            padding: 25px;
-            display: none;
-            margin-bottom: 20px;
-        }
+        .expert-card { background: #2a1a1a; border: 1px solid #5a2a2a; border-radius: 16px; padding: 25px; display: none; margin-bottom: 20px; }
         .expert-card.show { display: block; }
-        .expert-title { font-size: 1.1em; font-weight: bold; color: #ff6b6b; margin-bottom: 8px; }
+        .expert-title { font-size: 1.1em; font-weight: bold; color: #ff3333; margin-bottom: 8px; }
         .expert-subtitle { font-size: 0.9em; color: #888; margin-bottom: 20px; }
         .expert-options { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
-        .expert-option {
-            background: #3a2020;
-            border: 1px solid #5a3030;
-            border-radius: 50px;
-            padding: 8px 16px;
-            cursor: pointer;
-            font-size: 0.9em;
-            color: #aaa;
-            transition: all 0.2s;
-        }
-        .expert-option.active { border-color: #ff6b6b; color: #ff6b6b; background: #3a1a1a; }
+        .expert-option { background: #3a2020; border: 1px solid #5a3030; border-radius: 50px; padding: 8px 16px; cursor: pointer; font-size: 0.9em; color: #aaa; transition: all 0.2s; }
+        .expert-option.active { border-color: #ff3333; color: #ff3333; background: #3a1a1a; }
         .privacy-note { font-size: 0.78em; color: #555; margin-bottom: 12px; }
         .expert-input-wrapper { position: relative; }
-        .expert-input {
-            background: #3a2020;
-            border: 1px solid #5a3030;
-            border-radius: 12px;
-            padding: 12px 45px 12px 16px;
-            width: 100%;
-            font-size: 1em;
-            color: white;
-            outline: none;
-            margin-bottom: 12px;
-            display: none;
-        }
+        .expert-input { background: #3a2020; border: 1px solid #5a3030; border-radius: 12px; padding: 12px 45px 12px 16px; width: 100%; font-size: 1em; color: white; outline: none; margin-bottom: 12px; display: none; }
         .expert-input.show { display: block; }
-        .expert-input:focus { border-color: #ff6b6b; }
+        .expert-input:focus { border-color: #ff3333; }
         .expert-input::placeholder { color: #666; }
-        .expert-img-btn {
-            position: absolute;
-            right: 12px;
-            top: 12px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #666;
-            font-size: 1.1em;
-            transition: color 0.2s;
-            display: none;
-        }
+        .expert-img-btn { position: absolute; right: 12px; top: 12px; background: none; border: none; cursor: pointer; color: #666; font-size: 1.1em; transition: color 0.2s; display: none; }
         .expert-img-btn.show { display: block; }
-        .expert-img-btn:hover { color: #ff6b6b; }
-        .expert-img-preview {
-            display: none;
-            background: #3a2020;
-            border: 1px solid #5a3030;
-            border-radius: 12px;
-            padding: 10px 15px;
-            margin-bottom: 12px;
-            font-size: 0.85em;
-            color: #888;
-            align-items: center;
-            gap: 10px;
-        }
+        .expert-img-btn:hover { color: #ff3333; }
+        .expert-img-preview { display: none; background: #3a2020; border: 1px solid #5a3030; border-radius: 12px; padding: 10px 15px; margin-bottom: 12px; font-size: 0.85em; color: #888; align-items: center; gap: 10px; }
         .expert-img-preview.show { display: flex; }
         .expert-img-preview img { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; }
-        .expert-submit {
-            background: linear-gradient(135deg, #8b1a1a, #ff6b6b);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 12px 24px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: transform 0.2s;
-            display: none;
-        }
+        .expert-submit { background: #cc2200; color: white; border: none; border-radius: 50px; padding: 12px 24px; font-size: 1em; font-weight: bold; cursor: pointer; width: 100%; transition: opacity 0.2s, transform 0.2s; display: none; }
         .expert-submit.show { display: block; }
-        .expert-submit:hover { transform: scale(1.02); }
-        .expert-success {
-            background: #1e2a1e;
-            border: 1px solid #4ecdc4;
-            border-radius: 12px;
-            padding: 15px;
-            color: #4ecdc4;
-            text-align: center;
-            display: none;
-        }
+        .expert-submit:hover { opacity: 0.88; transform: scale(1.02); }
+        .expert-success { background: #1e2a1e; border: 1px solid #4ecdc4; border-radius: 12px; padding: 15px; color: #4ecdc4; text-align: center; display: none; }
         .expert-success.show { display: block; }
 
-        /* ── Editorial ── */
-        .editorial-card {
-            background: #1a1e2a;
-            border-left: 4px solid #4ecdc4;
-            border-radius: 16px;
-            padding: 25px;
-            display: none;
-            margin-bottom: 20px;
-        }
+        .editorial-card { background: #1a1e2a; border-left: 4px solid #4ecdc4; border-radius: 16px; padding: 25px; display: none; margin-bottom: 20px; }
         .editorial-card.show { display: block; }
-        .editorial-badge {
-            display: inline-block;
-            background: #4ecdc4;
-            color: #0a0a0a;
-            font-size: 0.75em;
-            font-weight: bold;
-            padding: 3px 10px;
-            border-radius: 20px;
-            margin-bottom: 12px;
-        }
+        .editorial-badge { display: inline-block; background: #4ecdc4; color: #0a0a0a; font-size: 0.75em; font-weight: bold; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; }
 
-        /* ── Nueva búsqueda ── */
-        .btn-nueva {
-            display: none;
-            background: transparent;
-            border: 1px solid #444;
-            color: #888;
-            border-radius: 50px;
-            padding: 10px 24px;
-            font-size: 0.95em;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            transition: all 0.2s;
-        }
-        .btn-nueva:hover { border-color: #ff6b6b; color: white; }
+        .btn-nueva { display: none; background: transparent; border: 1px solid #444; color: #888; border-radius: 50px; padding: 10px 24px; font-size: 0.95em; cursor: pointer; width: 100%; margin-top: 10px; margin-bottom: 20px; transition: all 0.2s; }
+        .btn-nueva:hover { border-color: #ff3333; color: white; }
         .btn-nueva.show { display: block; }
 
         .error-message { background: #2a1a1a; border-left: 4px solid #ff4444; padding: 20px; border-radius: 8px; color: #ff8888; display: none; margin-bottom: 20px; }
@@ -328,23 +160,18 @@
 <body>
 <div class="container">
 
-    <!-- Menú izquierda -->
     <div class="top-left">
         <a href="/experto.html">🧠 ¿Qué hace el experto?</a>
     </div>
-
-    <!-- Menú derecha -->
     <div class="top-right">
         <a href="/terminos.html">📋 Términos y Condiciones</a>
         <span>|</span>
         <a href="/privacidad.html">🔒 Privacidad</a>
     </div>
 
-    <!-- Título como enlace -->
     <h1><a href="/">🔞 PediaX</a></h1>
     <div class="subtitle">Enciclopedia del entretenimiento para adultos</div>
 
-    <!-- Cajón con ícono imagen -->
     <div class="search-wrapper">
         <input type="text" class="search-box" id="searchInput"
             placeholder="Pregunta lo que quieras y adjunta una imagen si lo necesitas...">
@@ -353,14 +180,12 @@
         <input type="file" id="fileInput" accept="image/*" onchange="handleMainImage(event)">
     </div>
 
-    <!-- Preview imagen principal -->
     <div class="image-preview" id="mainImagePreview">
         <img id="mainImageThumb" src="" alt="">
         <span id="mainImageName"></span>
         <span class="remove-img" onclick="removeMainImage()">✕</span>
     </div>
 
-    <!-- Dos botones -->
     <div class="buttons-row">
         <button class="button" id="searchButton">🔍 Buscar</button>
         <button class="button-expert" onclick="mostrarExpertoDirecto()">🧠 Pregunta al Experto</button>
@@ -369,13 +194,11 @@
     <div class="loading" id="loading">🔍 Buscando en fuentes especializadas...</div>
     <div class="error-message" id="errorMessage"></div>
 
-    <!-- Editorial -->
     <div class="editorial-card" id="editorialCard">
         <div class="editorial-badge">✍️ Respuesta editorial</div>
         <div class="answer-text" id="editorialAnswer"></div>
     </div>
 
-    <!-- Resultado -->
     <div class="result-card" id="resultCard">
         <div class="result-header">
             <span class="emoji" id="resultEmoji">🟢</span>
@@ -385,7 +208,6 @@
         <div class="sources" id="resultSources"></div>
     </div>
 
-    <!-- Formulario experto — siempre visible tras resultado -->
     <div class="expert-card" id="expertCard">
         <div class="expert-title">🧠 ¿No encontraste lo que buscabas?</div>
         <div class="expert-subtitle">Un experto puede responder tu pregunta sin costo. Dinos a dónde enviarte la respuesta:</div>
@@ -428,39 +250,21 @@ let mainImageFile = null;
 let expertImageFile = null;
 
 function handleMainImage(e) {
-    const file = e.target.files[0];
-    if (!file) return;
+    const file = e.target.files[0]; if (!file) return;
     mainImageFile = file;
     const reader = new FileReader();
-    reader.onload = ev => {
-        document.getElementById('mainImageThumb').src = ev.target.result;
-        document.getElementById('mainImageName').textContent = file.name;
-        document.getElementById('mainImagePreview').classList.add('show');
-    };
+    reader.onload = ev => { document.getElementById('mainImageThumb').src = ev.target.result; document.getElementById('mainImageName').textContent = file.name; document.getElementById('mainImagePreview').classList.add('show'); };
     reader.readAsDataURL(file);
 }
-function removeMainImage() {
-    mainImageFile = null;
-    document.getElementById('fileInput').value = '';
-    document.getElementById('mainImagePreview').classList.remove('show');
-}
+function removeMainImage() { mainImageFile = null; document.getElementById('fileInput').value = ''; document.getElementById('mainImagePreview').classList.remove('show'); }
 function handleExpertImage(e) {
-    const file = e.target.files[0];
-    if (!file) return;
+    const file = e.target.files[0]; if (!file) return;
     expertImageFile = file;
     const reader = new FileReader();
-    reader.onload = ev => {
-        document.getElementById('expertImgThumb').src = ev.target.result;
-        document.getElementById('expertImgName').textContent = file.name;
-        document.getElementById('expertImgPreview').classList.add('show');
-    };
+    reader.onload = ev => { document.getElementById('expertImgThumb').src = ev.target.result; document.getElementById('expertImgName').textContent = file.name; document.getElementById('expertImgPreview').classList.add('show'); };
     reader.readAsDataURL(file);
 }
-function removeExpertImage() {
-    expertImageFile = null;
-    document.getElementById('expertFileInput').value = '';
-    document.getElementById('expertImgPreview').classList.remove('show');
-}
+function removeExpertImage() { expertImageFile = null; document.getElementById('expertFileInput').value = ''; document.getElementById('expertImgPreview').classList.remove('show'); }
 
 const RESPUESTAS_EDITORIALES = {
     'epoca de oro': `🎬 **La Época de Oro del Porno (1969–1984)**\n\nSe conoce como la "Época de Oro" al período en que las películas para adultos se proyectaban en cines convencionales y tenían presupuestos, guiones y producción cinematográfica real.\n\n📅 Comenzó con **Deep Throat** (1972) de Gerard Damiano, la primera película adulta en llegar a salas mainstream de EE.UU., recaudando más de $600 millones.\n\n🎥 Otras películas icónicas de la era:\n• Behind the Green Door (1972)\n• The Devil in Miss Jones (1973)\n• Debbie Does Dallas (1978)\n• Caligula (1979)\n\n🔚 La era terminó con la masificación del VHS en los 80, que llevó el contenido al hogar y eliminó la necesidad de producciones cinematográficas.`,
@@ -521,8 +325,7 @@ function mostrarResultado(data, query) {
     if (data.confianza < 0.4) emoji = '🔴';
     else if (data.confianza < 0.7) emoji = '🟡';
     document.getElementById('resultEmoji').textContent = emoji;
-    document.getElementById('resultQuery').textContent = data.consulta_interpretada
-        ? `${query} → ${data.consulta_interpretada}` : query;
+    document.getElementById('resultQuery').textContent = data.consulta_interpretada ? `${query} → ${data.consulta_interpretada}` : query;
     const formateado = (data.respuesta || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     document.getElementById('resultAnswer').innerHTML = formateado;
     let sourcesHTML = '';
@@ -556,17 +359,10 @@ function seleccionarContacto(tipo) {
     const input = document.getElementById('expertInput');
     const submit = document.getElementById('expertSubmit');
     const imgBtn = document.getElementById('expertImgBtn');
-    input.classList.add('show');
-    submit.classList.add('show');
-    imgBtn.classList.add('show');
-    const placeholders = {
-        email: 'Tu correo electrónico',
-        whatsapp: 'Tu número de WhatsApp (con código de país, ej: +57 300 000 0000)',
-        telegram: 'Tu usuario de Telegram (ej: @tunombre)'
-    };
+    input.classList.add('show'); submit.classList.add('show'); imgBtn.classList.add('show');
+    const placeholders = { email: 'Tu correo electrónico', whatsapp: 'Tu número de WhatsApp (con código de país, ej: +57 300 000 0000)', telegram: 'Tu usuario de Telegram (ej: @tunombre)' };
     input.placeholder = placeholders[tipo];
-    input.value = '';
-    input.focus();
+    input.value = ''; input.focus();
 }
 
 async function enviarContacto() {
@@ -576,12 +372,7 @@ async function enviarContacto() {
         await fetch(`${API_URL}/experto`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                pregunta: consultaPendiente,
-                tipo_contacto: tipoContacto,
-                contacto: contacto,
-                tiene_imagen: expertImageFile ? true : false
-            })
+            body: JSON.stringify({ pregunta: consultaPendiente, tipo_contacto: tipoContacto, contacto: contacto, tiene_imagen: expertImageFile ? true : false })
         });
     } catch (e) { console.log('Error enviando:', e); }
     document.getElementById('expertInput').classList.remove('show');
@@ -601,19 +392,11 @@ function ocultarTodo() {
     document.getElementById('expertImgBtn').classList.remove('show');
     document.getElementById('expertImgPreview').classList.remove('show');
     document.getElementById('btnNueva').classList.remove('show');
-    tipoContacto = null;
-    expertImageFile = null;
+    tipoContacto = null; expertImageFile = null;
 }
 
-function mostrarError(msg) {
-    document.getElementById('errorMessage').textContent = msg;
-    document.getElementById('errorMessage').style.display = 'block';
-}
-
-function searchExample(query) {
-    document.getElementById('searchInput').value = query;
-    buscar();
-}
+function mostrarError(msg) { document.getElementById('errorMessage').textContent = msg; document.getElementById('errorMessage').style.display = 'block'; }
+function searchExample(query) { document.getElementById('searchInput').value = query; buscar(); }
 
 document.getElementById('searchButton').addEventListener('click', buscar);
 document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') buscar(); });

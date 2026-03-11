@@ -6,65 +6,27 @@
     <title>Términos y Condiciones — PediaX</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0a;
-            color: #e0e0e0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
-        }
-        .container {
-            max-width: 800px;
-            width: 100%;
-            background: #1a1a1a;
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            border: 1px solid #333;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+        .container { max-width: 800px; width: 100%; background: #1a1a1a; border-radius: 24px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid #333; }
         h1 { font-size: 2.5em; margin-bottom: 6px; text-align: center; }
-        h1 a {
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-        }
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: #555;
-            text-decoration: none;
-            font-size: 0.85em;
-            margin-bottom: 30px;
-            transition: color 0.2s;
-        }
-        .back-link:hover { color: #ff6b6b; }
+        h1 a { color: #ff3333; text-decoration: none; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: #555; text-decoration: none; font-size: 0.85em; margin-bottom: 30px; transition: color 0.2s; }
+        .back-link:hover { color: #ff3333; }
         .page-title { font-size: 1.6em; font-weight: bold; color: #e0e0e0; margin-bottom: 6px; margin-top: 24px; text-align: center; }
         .updated { color: #555; font-size: 0.8em; margin-bottom: 32px; text-align: center; }
         .section { margin-bottom: 28px; }
-        .section h2 { font-size: 1em; font-weight: bold; color: #ff6b6b; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .section h2 { font-size: 1em; font-weight: bold; color: #ff3333; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
         .section p { color: #aaa; line-height: 1.8; font-size: 0.95em; margin-bottom: 10px; }
         .section ul { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
         .section ul li { color: #aaa; font-size: 0.95em; line-height: 1.6; padding-left: 16px; position: relative; }
-        .section ul li::before { content: '·'; position: absolute; left: 0; color: #ff6b6b; }
+        .section ul li::before { content: '·'; position: absolute; left: 0; color: #ff3333; }
         .divider { border: none; border-top: 1px solid #2a2a2a; margin: 24px 0; }
-        .alert-box {
-            background: #2a1a1a;
-            border: 1px solid #5a2a2a;
-            border-radius: 12px;
-            padding: 16px 20px;
-            color: #ff8888;
-            font-size: 0.9em;
-            line-height: 1.6;
-            margin-bottom: 28px;
-        }
+        .alert-box { background: #2a1a1a; border: 1px solid #5a2a2a; border-radius: 12px; padding: 16px 20px; color: #ff8888; font-size: 0.9em; line-height: 1.6; margin-bottom: 28px; }
         .contact-info { background: #2a2a2a; border-radius: 12px; padding: 16px 20px; color: #888; font-size: 0.9em; line-height: 1.8; }
         .contact-info strong { color: #ccc; }
         .footer-note { text-align: center; color: #444; font-size: 0.78em; margin-top: 30px; }
+        .volver-inicio { display: block; text-align: center; margin-top: 32px; color: #555; text-decoration: none; font-size: 0.9em; transition: color 0.2s; }
+        .volver-inicio:hover { color: #ff3333; }
     </style>
 </head>
 <body>
@@ -73,7 +35,7 @@
     <a href="/" class="back-link">← Volver al inicio</a>
 
     <div class="page-title">📋 Términos y Condiciones</div>
-    <p class="updated">Última actualización: Marzo 2026 · Aplica legislación colombiana</p>
+    <p class="updated">Última actualización: Marzo 2026</p>
 
     <div class="alert-box">
         ⚠️ <strong>Contenido solo para adultos.</strong> Al usar PediaX confirmas que tienes 18 años o más. Si eres menor de edad, abandona este sitio de inmediato.
@@ -164,13 +126,8 @@
 
     <div class="section">
         <h2>8. Legislación aplicable</h2>
-        <p>Estos términos se rigen por las leyes de la República de Colombia, incluyendo:</p>
-        <ul>
-            <li>Ley 1581 de 2012 — Protección de Datos Personales.</li>
-            <li>Ley 1480 de 2011 — Estatuto del Consumidor.</li>
-            <li>Ley 679 de 2001 — Prevención de explotación sexual de menores.</li>
-        </ul>
-        <p>Cualquier disputa será resuelta ante los tribunales competentes de Colombia.</p>
+        <p>Este Servicio opera desde Colombia y se rige por las leyes de la República de Colombia. El usuario es responsable de verificar que el acceso y uso del Servicio sea legal en su país de residencia.</p>
+        <p>Al igual que ocurre con servicios globales como plataformas de streaming o redes sociales, el uso de PediaX desde cualquier país implica la aceptación de los presentes términos, regidos por la legislación del país de operación del Servicio.</p>
     </div>
 
     <hr class="divider">
@@ -184,6 +141,8 @@
             ✈️ Telegram: @PediaX
         </div>
     </div>
+
+    <a href="/" class="volver-inicio">← Volver al inicio</a>
 
     <p class="footer-note">PediaX — Enciclopedia del entretenimiento para adultos · Solo para mayores de 18 años</p>
 </div>
