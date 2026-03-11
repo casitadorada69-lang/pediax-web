@@ -25,14 +25,51 @@
             padding: 40px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             border: 1px solid #333;
+            position: relative;
         }
+
+        /* ── Menú superior ── */
+        .top-left {
+            position: absolute;
+            top: 18px;
+            left: 24px;
+        }
+        .top-left a {
+            color: #555;
+            font-size: 0.75em;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+        .top-left a:hover { color: #ff6b6b; }
+        .top-right {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+        .top-right a {
+            color: #555;
+            font-size: 0.75em;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+        .top-right a:hover { color: #ff6b6b; }
+        .top-right span { color: #333; font-size: 0.75em; }
+
         h1 {
             font-size: 3em;
             margin-bottom: 10px;
+            text-align: center;
+        }
+        h1 a {
             background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-align: center;
+            text-decoration: none;
         }
         .subtitle {
             text-align: center;
@@ -40,37 +77,95 @@
             margin-bottom: 40px;
             font-size: 1.1em;
         }
+
+        /* ── Cajón con ícono imagen ── */
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 12px;
+        }
         .search-box {
             background: #2a2a2a;
             border: 1px solid #444;
             border-radius: 50px;
-            padding: 15px 25px;
+            padding: 15px 55px 15px 25px;
             width: 100%;
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: white;
             outline: none;
             transition: all 0.3s;
-            margin-bottom: 20px;
         }
         .search-box:focus {
             border-color: #ff6b6b;
             box-shadow: 0 0 0 3px rgba(255,107,107,0.2);
         }
-        .search-box::placeholder { color: #666; }
+        .search-box::placeholder { color: #555; font-style: italic; }
+        .img-attach-btn {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 1.3em;
+            transition: color 0.2s;
+            padding: 4px;
+        }
+        .img-attach-btn:hover { color: #ff6b6b; }
+
+        /* Preview imagen */
+        .image-preview {
+            display: none;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 12px;
+            padding: 10px 15px;
+            margin-bottom: 12px;
+            font-size: 0.85em;
+            color: #888;
+            align-items: center;
+            gap: 10px;
+        }
+        .image-preview.show { display: flex; }
+        .image-preview img { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; }
+        .remove-img { margin-left: auto; cursor: pointer; color: #ff4444; font-size: 1.1em; }
+
+        /* ── Dos botones ── */
+        .buttons-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            margin-top: 12px;
+        }
         .button {
             background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
             color: white;
             border: none;
             border-radius: 50px;
-            padding: 15px 30px;
-            font-size: 1.2em;
+            padding: 15px 20px;
+            font-size: 1.05em;
             font-weight: bold;
             cursor: pointer;
-            width: 100%;
+            flex: 1;
             transition: transform 0.2s;
-            margin-bottom: 30px;
         }
         .button:hover { transform: scale(1.02); }
+        .button-expert {
+            background: linear-gradient(135deg, #8b1a1a, #ff6b6b);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 20px;
+            font-size: 1.05em;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+            transition: transform 0.2s;
+        }
+        .button-expert:hover { transform: scale(1.02); }
+
+        /* ── Resultado ── */
         .result-card {
             background: #2a2a2a;
             border-radius: 16px;
@@ -80,82 +175,32 @@
             margin-bottom: 20px;
         }
         .result-card.show { display: block; }
-        .result-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
+        .result-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
         .emoji { font-size: 2em; }
-        .query-text {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #ff6b6b;
-        }
-        .answer-text {
-            font-size: 1.1em;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            color: #ddd;
-            white-space: pre-line;
-        }
-        .answer-text strong {
-            color: #fff;
-            font-weight: bold;
-        }
-        .sources {
-            font-size: 0.9em;
-            color: #888;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            border-top: 1px solid #444;
-            padding-top: 15px;
-            align-items: center;
-        }
-        .source-tag {
-            background: #333;
-            padding: 5px 10px;
-            border-radius: 12px;
-            color: #4ecdc4;
-        }
-        .url-link {
-            font-size: 0.8em;
-            color: #666;
-            text-decoration: none;
-        }
+        .query-text { font-size: 1.4em; font-weight: bold; color: #ff6b6b; }
+        .answer-text { font-size: 1.1em; line-height: 1.8; margin-bottom: 20px; color: #ddd; white-space: pre-line; }
+        .answer-text strong { color: #fff; font-weight: bold; }
+        .sources { font-size: 0.9em; color: #888; display: flex; gap: 15px; flex-wrap: wrap; border-top: 1px solid #444; padding-top: 15px; align-items: center; }
+        .source-tag { background: #333; padding: 5px 10px; border-radius: 12px; color: #4ecdc4; }
+        .url-link { font-size: 0.8em; color: #666; text-decoration: none; }
         .url-link:hover { color: #4ecdc4; }
 
-        /* ── Formulario de experto ── */
+        /* ── Formulario experto ROJO ── */
         .expert-card {
-            background: #1e2a1e;
-            border: 1px solid #2d4a2d;
+            background: #2a1a1a;
+            border: 1px solid #5a2a2a;
             border-radius: 16px;
             padding: 25px;
             display: none;
             margin-bottom: 20px;
         }
         .expert-card.show { display: block; }
-        .expert-title {
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #4ecdc4;
-            margin-bottom: 8px;
-        }
-        .expert-subtitle {
-            font-size: 0.9em;
-            color: #888;
-            margin-bottom: 20px;
-        }
-        .expert-options {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
+        .expert-title { font-size: 1.1em; font-weight: bold; color: #ff6b6b; margin-bottom: 8px; }
+        .expert-subtitle { font-size: 0.9em; color: #888; margin-bottom: 20px; }
+        .expert-options { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
         .expert-option {
-            background: #2a2a2a;
-            border: 1px solid #444;
+            background: #3a2020;
+            border: 1px solid #5a3030;
             border-radius: 50px;
             padding: 8px 16px;
             cursor: pointer;
@@ -163,21 +208,14 @@
             color: #aaa;
             transition: all 0.2s;
         }
-        .expert-option.active {
-            border-color: #4ecdc4;
-            color: #4ecdc4;
-            background: #1a2e2e;
-        }
-        .privacy-note {
-            font-size: 0.78em;
-            color: #555;
-            margin-bottom: 12px;
-        }
+        .expert-option.active { border-color: #ff6b6b; color: #ff6b6b; background: #3a1a1a; }
+        .privacy-note { font-size: 0.78em; color: #555; margin-bottom: 12px; }
+        .expert-input-wrapper { position: relative; }
         .expert-input {
-            background: #2a2a2a;
-            border: 1px solid #444;
+            background: #3a2020;
+            border: 1px solid #5a3030;
             border-radius: 12px;
-            padding: 12px 16px;
+            padding: 12px 45px 12px 16px;
             width: 100%;
             font-size: 1em;
             color: white;
@@ -186,10 +224,38 @@
             display: none;
         }
         .expert-input.show { display: block; }
-        .expert-input:focus { border-color: #4ecdc4; }
+        .expert-input:focus { border-color: #ff6b6b; }
         .expert-input::placeholder { color: #666; }
+        .expert-img-btn {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 1.1em;
+            transition: color 0.2s;
+            display: none;
+        }
+        .expert-img-btn.show { display: block; }
+        .expert-img-btn:hover { color: #ff6b6b; }
+        .expert-img-preview {
+            display: none;
+            background: #3a2020;
+            border: 1px solid #5a3030;
+            border-radius: 12px;
+            padding: 10px 15px;
+            margin-bottom: 12px;
+            font-size: 0.85em;
+            color: #888;
+            align-items: center;
+            gap: 10px;
+        }
+        .expert-img-preview.show { display: flex; }
+        .expert-img-preview img { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; }
         .expert-submit {
-            background: linear-gradient(135deg, #2d4a2d, #4ecdc4);
+            background: linear-gradient(135deg, #8b1a1a, #ff6b6b);
             color: white;
             border: none;
             border-radius: 50px;
@@ -214,7 +280,7 @@
         }
         .expert-success.show { display: block; }
 
-        /* ── Respuestas editoriales ── */
+        /* ── Editorial ── */
         .editorial-card {
             background: #1a1e2a;
             border-left: 4px solid #4ecdc4;
@@ -235,7 +301,7 @@
             margin-bottom: 12px;
         }
 
-        /* ── Botón Nueva búsqueda ── */
+        /* ── Nueva búsqueda ── */
         .btn-nueva {
             display: none;
             background: transparent;
@@ -250,95 +316,66 @@
             margin-bottom: 20px;
             transition: all 0.2s;
         }
-        .btn-nueva:hover {
-            border-color: #ff6b6b;
-            color: white;
-        }
+        .btn-nueva:hover { border-color: #ff6b6b; color: white; }
         .btn-nueva.show { display: block; }
 
-        /* ── Búsquedas recientes ── */
-        .recientes {
-            margin-top: 30px;
-        }
-        .recientes-titulo {
-            font-size: 0.8em;
-            color: #555;
-            margin-bottom: 10px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .recientes-lista {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .reciente-btn {
-            background: #2a2a2a;
-            border: 1px solid #444;
-            color: #888;
-            padding: 8px 15px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.2s;
-        }
-        .reciente-btn:hover {
-            border-color: #ff6b6b;
-            color: white;
-        }
-        .recientes-vacio {
-            text-align: center;
-            color: #444;
-            font-size: 0.85em;
-            padding: 10px 0;
-        }
-
-        .error-message {
-            background: #2a1a1a;
-            border-left: 4px solid #ff4444;
-            padding: 20px;
-            border-radius: 8px;
-            color: #ff8888;
-            display: none;
-            margin-bottom: 20px;
-        }
-        .loading {
-            text-align: center;
-            color: #888;
-            padding: 20px;
-            display: none;
-        }
-        .footer {
-            margin-top: 20px;
-            color: #555;
-            font-size: 0.78em;
-            text-align: center;
-            line-height: 1.8;
-        }
+        .error-message { background: #2a1a1a; border-left: 4px solid #ff4444; padding: 20px; border-radius: 8px; color: #ff8888; display: none; margin-bottom: 20px; }
+        .loading { text-align: center; color: #888; padding: 20px; display: none; }
+        .footer { margin-top: 20px; color: #555; font-size: 0.78em; text-align: center; line-height: 1.8; }
+        #fileInput, #expertFileInput { display: none; }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🔞 PediaX</h1>
+
+    <!-- Menú izquierda -->
+    <div class="top-left">
+        <a href="/experto.html">🧠 ¿Qué hace el experto?</a>
+    </div>
+
+    <!-- Menú derecha -->
+    <div class="top-right">
+        <a href="/terminos.html">📋 Términos y Condiciones</a>
+        <span>|</span>
+        <a href="/privacidad.html">🔒 Privacidad</a>
+    </div>
+
+    <!-- Título como enlace -->
+    <h1><a href="/">🔞 PediaX</a></h1>
     <div class="subtitle">Enciclopedia del entretenimiento para adultos</div>
 
-    <input type="text" class="search-box" id="searchInput"
-        placeholder="Ej: Mia Malkova, ¿Cuánto mide Alexis Texas?, Deep Throat 1972...">
+    <!-- Cajón con ícono imagen -->
+    <div class="search-wrapper">
+        <input type="text" class="search-box" id="searchInput"
+            placeholder="Pregunta lo que quieras y adjunta una imagen si lo necesitas...">
+        <button class="img-attach-btn" title="Adjuntar imagen"
+            onclick="document.getElementById('fileInput').click()">🖼️</button>
+        <input type="file" id="fileInput" accept="image/*" onchange="handleMainImage(event)">
+    </div>
 
-    <button class="button" id="searchButton">🔍 Buscar</button>
+    <!-- Preview imagen principal -->
+    <div class="image-preview" id="mainImagePreview">
+        <img id="mainImageThumb" src="" alt="">
+        <span id="mainImageName"></span>
+        <span class="remove-img" onclick="removeMainImage()">✕</span>
+    </div>
+
+    <!-- Dos botones -->
+    <div class="buttons-row">
+        <button class="button" id="searchButton">🔍 Buscar</button>
+        <button class="button-expert" onclick="mostrarExpertoDirecto()">🧠 Pregunta al Experto</button>
+    </div>
 
     <div class="loading" id="loading">🔍 Buscando en fuentes especializadas...</div>
     <div class="error-message" id="errorMessage"></div>
 
-    <!-- Respuesta editorial -->
+    <!-- Editorial -->
     <div class="editorial-card" id="editorialCard">
         <div class="editorial-badge">✍️ Respuesta editorial</div>
         <div class="answer-text" id="editorialAnswer"></div>
     </div>
 
-    <!-- Resultado normal -->
+    <!-- Resultado -->
     <div class="result-card" id="resultCard">
         <div class="result-header">
             <span class="emoji" id="resultEmoji">🟢</span>
@@ -348,32 +385,35 @@
         <div class="sources" id="resultSources"></div>
     </div>
 
-    <!-- Formulario de experto -->
+    <!-- Formulario experto — siempre visible tras resultado -->
     <div class="expert-card" id="expertCard">
-        <div class="expert-title">🧠 Pregunta para un experto</div>
-        <div class="expert-subtitle">No tenemos toda la información ahora mismo. ¿Quieres que un experto te responda sin costo? Dinos a dónde quieres que te enviemos la respuesta:</div>
+        <div class="expert-title">🧠 ¿No encontraste lo que buscabas?</div>
+        <div class="expert-subtitle">Un experto puede responder tu pregunta sin costo. Dinos a dónde enviarte la respuesta:</div>
         <div class="expert-options">
             <div class="expert-option" onclick="seleccionarContacto('email')" id="opt-email">📧 Email</div>
             <div class="expert-option" onclick="seleccionarContacto('whatsapp')" id="opt-whatsapp">💬 WhatsApp</div>
             <div class="expert-option" onclick="seleccionarContacto('telegram')" id="opt-telegram">✈️ Telegram</div>
         </div>
         <div class="privacy-note">🔒 No recopilamos tus datos. Solo los usamos para enviarte la respuesta.</div>
-        <input type="text" class="expert-input" id="expertInput" placeholder="">
-        <button class="expert-submit" id="expertSubmit" onclick="enviarContacto()">📩 Enviar pregunta al experto</button>
+        <div class="expert-input-wrapper">
+            <input type="text" class="expert-input" id="expertInput" placeholder="">
+            <button class="expert-img-btn" id="expertImgBtn" title="Adjuntar imagen"
+                onclick="document.getElementById('expertFileInput').click()">🖼️</button>
+            <input type="file" id="expertFileInput" accept="image/*" onchange="handleExpertImage(event)">
+        </div>
+        <div class="expert-img-preview" id="expertImgPreview">
+            <img id="expertImgThumb" src="" alt="">
+            <span id="expertImgName"></span>
+            <span class="remove-img" onclick="removeExpertImage()">✕</span>
+        </div>
+        <button class="expert-submit" id="expertSubmit" onclick="enviarContacto()">📩 Enviar al experto — Es gratis</button>
         <div class="expert-success" id="expertSuccess">
             ✅ ¡Recibido! Un experto te responderá pronto.<br>
             <span style="font-size:0.85em; color:#888;">Tiempo estimado: menos de 24 horas.</span>
         </div>
     </div>
 
-    <!-- Botón Nueva búsqueda -->
     <button class="btn-nueva" id="btnNueva" onclick="nuevaBusqueda()">🔄 Nueva búsqueda</button>
-
-    <!-- Búsquedas recientes -->
-    <div class="recientes" id="recientes">
-        <div class="recientes-titulo">🕐 Búsquedas recientes</div>
-        <div class="recientes-lista" id="recientesLista"></div>
-    </div>
 
     <div class="footer">
         ⚡ Sin IA &nbsp;•&nbsp; Fuentes verificadas &nbsp;•&nbsp; 100% gratis &nbsp;•&nbsp; 🔒 No recopilamos tus datos
@@ -382,46 +422,53 @@
 
 <script>
 const API_URL = 'https://pediax-api.casitadorada69.workers.dev';
-const MAX_RECIENTES = 6;
+let tipoContacto = null;
+let consultaPendiente = '';
+let mainImageFile = null;
+let expertImageFile = null;
 
-// ─── BÚSQUEDAS RECIENTES ──────────────────────────────────────────────────────
-function guardarReciente(query) {
-    let recientes = JSON.parse(localStorage.getItem('pediax_recientes') || '[]');
-    recientes = recientes.filter(r => r.toLowerCase() !== query.toLowerCase());
-    recientes.unshift(query);
-    recientes = recientes.slice(0, MAX_RECIENTES);
-    localStorage.setItem('pediax_recientes', JSON.stringify(recientes));
-    renderizarRecientes();
+function handleMainImage(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    mainImageFile = file;
+    const reader = new FileReader();
+    reader.onload = ev => {
+        document.getElementById('mainImageThumb').src = ev.target.result;
+        document.getElementById('mainImageName').textContent = file.name;
+        document.getElementById('mainImagePreview').classList.add('show');
+    };
+    reader.readAsDataURL(file);
+}
+function removeMainImage() {
+    mainImageFile = null;
+    document.getElementById('fileInput').value = '';
+    document.getElementById('mainImagePreview').classList.remove('show');
+}
+function handleExpertImage(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    expertImageFile = file;
+    const reader = new FileReader();
+    reader.onload = ev => {
+        document.getElementById('expertImgThumb').src = ev.target.result;
+        document.getElementById('expertImgName').textContent = file.name;
+        document.getElementById('expertImgPreview').classList.add('show');
+    };
+    reader.readAsDataURL(file);
+}
+function removeExpertImage() {
+    expertImageFile = null;
+    document.getElementById('expertFileInput').value = '';
+    document.getElementById('expertImgPreview').classList.remove('show');
 }
 
-function renderizarRecientes() {
-    const lista = document.getElementById('recientesLista');
-    const recientes = JSON.parse(localStorage.getItem('pediax_recientes') || '[]');
-
-    if (recientes.length === 0) {
-        lista.innerHTML = '<div class="recientes-vacio">Tus búsquedas recientes aparecerán aquí</div>';
-        return;
-    }
-
-    lista.innerHTML = recientes.map(r =>
-        `<span class="reciente-btn" onclick="searchExample('${r.replace(/'/g, "\\'")}')">${r}</span>`
-    ).join('');
-}
-
-// ─── RESPUESTAS EDITORIALES ───────────────────────────────────────────────────
 const RESPUESTAS_EDITORIALES = {
     'epoca de oro': `🎬 **La Época de Oro del Porno (1969–1984)**\n\nSe conoce como la "Época de Oro" al período en que las películas para adultos se proyectaban en cines convencionales y tenían presupuestos, guiones y producción cinematográfica real.\n\n📅 Comenzó con **Deep Throat** (1972) de Gerard Damiano, la primera película adulta en llegar a salas mainstream de EE.UU., recaudando más de $600 millones.\n\n🎥 Otras películas icónicas de la era:\n• Behind the Green Door (1972)\n• The Devil in Miss Jones (1973)\n• Debbie Does Dallas (1978)\n• Caligula (1979)\n\n🔚 La era terminó con la masificación del VHS en los 80, que llevó el contenido al hogar y eliminó la necesidad de producciones cinematográficas.`,
-
     'madre e hija': `👩‍👧 **Madre e hija en la industria adulta**\n\nExisten casos documentados de madres e hijas que trabajaron en la industria, aunque la mayoría lo hicieron en períodos separados:\n\n• **Tabitha Stevens & su madre** — uno de los casos más citados\n• **Stormy Daniels** mencionó en entrevistas el tema familiar\n\nEn cuanto a escenas filmadas juntas, no existe evidencia pública documentada de escenas entre madre e hija biológicas reales en producciones comerciales verificadas.\n\n💬 ¿Quieres más información sobre algún caso específico? Déjanos tu pregunta para un experto.`,
-
     'hermanas': `👯 **Hermanas en la industria adulta**\n\nHay varios casos conocidos de hermanas que trabajaron en la industria:\n\n• **Megan y Morgan Rain** — gemelas que trabajaron juntas\n• **Kristina y Karissa Shannon** — gemelas que aparecieron en Playboy\n• **Las hermanas Bella** — conocidas en la industria europea\n\nAlgunas sí grabaron escenas juntas, principalmente en el mercado europeo donde las regulaciones son diferentes.\n\n💬 ¿Quieres datos específicos sobre algún caso? Déjanos tu contacto.`,
-
     'plataformas': `📱 **Las 5 mayores plataformas de video para adultos**\n\n1. 🥇 **Pornhub** — La más grande del mundo, más de 130 millones de visitas diarias. Propiedad de MindGeek.\n2. 🥈 **xVideos** — Segunda en tráfico global, especialmente fuerte en Europa y Latinoamérica.\n3. 🥉 **xHamster** — Tercera en ranking global, fuerte comunidad de usuarios.\n4. **XNXX** — También propiedad de xVideos, enorme base de contenido.\n5. **RedTube** — Parte del grupo MindGeek, interfaz limpia y popular en móviles.\n\n⚠️ Todas estas plataformas son de acceso gratuito con opciones premium.`,
-
     'rodox': `📼 **¿Qué es Rodox?**\n\nRodox fue una empresa danesa de producción y distribución de material para adultos, fundada en los años 70 en Copenhague, Dinamarca.\n\n🏛️ Es históricamente significativa porque operó durante el período en que Dinamarca fue el primer país del mundo en legalizar la pornografía (1969).\n\n📸 Se especializó en material fotográfico y películas de la época, mucho de su catálogo es considerado material de colección de la Época de Oro europea.\n\n⚠️ Parte de su catálogo histórico está en debate legal en varios países por las diferentes regulaciones de la época vs. los estándares actuales.`,
-
     'videos clasicos': `🎞️ **¿Dónde encontrar porno clásico?**\n\nAlgunas fuentes para material de la Época de Oro y clásicos:\n\n• **IAFD.com** — Base de datos completa de películas, con links a compra/streaming\n• **AdultDVDEmpire.com** — Tienda con catálogo histórico en DVD y streaming\n• **VintageClassicPorn.com** — Especializado en material pre-1990\n• **Pornhub** — Tiene sección "Vintage" con material clásico\n• **Archive.org** — Algunas películas históricas en dominio público\n\n💡 Para películas específicas de la Época de Oro, IAFD.com es la mejor referencia.`,
-
     'actriz mas tiempo': `🏆 **Actrices con más tiempo en la industria**\n\nAlgunas de las carreras más largas documentadas:\n\n• **Marilyn Chambers** — Activa desde 1972 hasta los 2000s (más de 30 años)\n• **Nina Hartley** — Activa desde 1984, sigue activa (más de 40 años) 🔴 récord vigente\n• **Veronica Vera** — Pionera de los 70s con carrera extendida\n• **Dee** — Activa en el mercado europeo por décadas\n\n🥇 **Nina Hartley** es considerada la actriz con la carrera activa más larga documentada en la industria mainstream estadounidense.\n\n💬 ¿Quieres información detallada sobre alguna de ellas?`
 };
 
@@ -437,106 +484,84 @@ function detectarEditorial(query) {
     return null;
 }
 
-// ─── VARIABLES DE ESTADO ──────────────────────────────────────────────────────
-let tipoContacto = null;
-let consultaPendiente = '';
+function mostrarExpertoDirecto() {
+    const query = document.getElementById('searchInput').value.trim();
+    consultaPendiente = query || '(pregunta directa al experto)';
+    ocultarTodo();
+    document.getElementById('expertCard').classList.add('show');
+    document.getElementById('btnNueva').classList.add('show');
+}
 
-// ─── BÚSQUEDA PRINCIPAL ───────────────────────────────────────────────────────
 async function buscar() {
     const query = document.getElementById('searchInput').value.trim();
-    if (!query || query.length < 3) {
-        mostrarError('Escribe al menos 3 caracteres');
-        return;
-    }
-
+    if (!query || query.length < 3) { mostrarError('Escribe al menos 3 caracteres'); return; }
     ocultarTodo();
     document.getElementById('loading').style.display = 'block';
     consultaPendiente = query;
-
-    const claveEditorial = detectarEditorial(query);
-    if (claveEditorial && RESPUESTAS_EDITORIALES[claveEditorial]) {
+    const clave = detectarEditorial(query);
+    if (clave && RESPUESTAS_EDITORIALES[clave]) {
         document.getElementById('loading').style.display = 'none';
-        guardarReciente(query);
-        mostrarEditorial(RESPUESTAS_EDITORIALES[claveEditorial]);
+        mostrarEditorial(RESPUESTAS_EDITORIALES[clave]);
         return;
     }
-
     try {
         const response = await fetch(`${API_URL}/buscar?q=${encodeURIComponent(query)}`);
         const data = await response.json();
         if (!response.ok) throw new Error(data.error || 'Error en la búsqueda');
-        guardarReciente(query);
         mostrarResultado(data, query);
     } catch (error) {
         mostrarError('Error al conectar con la API. Intenta de nuevo.');
-        console.error('Error:', error);
     } finally {
         document.getElementById('loading').style.display = 'none';
     }
 }
 
-// ─── MOSTRAR RESULTADO NORMAL ─────────────────────────────────────────────────
 function mostrarResultado(data, query) {
     let emoji = '🟢';
     if (data.confianza < 0.4) emoji = '🔴';
     else if (data.confianza < 0.7) emoji = '🟡';
-
     document.getElementById('resultEmoji').textContent = emoji;
     document.getElementById('resultQuery').textContent = data.consulta_interpretada
-        ? `${query} → ${data.consulta_interpretada}`
-        : query;
-
-    const respuestaFormateada = (data.respuesta || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    document.getElementById('resultAnswer').innerHTML = respuestaFormateada;
-
+        ? `${query} → ${data.consulta_interpretada}` : query;
+    const formateado = (data.respuesta || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    document.getElementById('resultAnswer').innerHTML = formateado;
     let sourcesHTML = '';
-    if (data.fuentes?.length) {
-        sourcesHTML += data.fuentes.map(f => `<span class="source-tag">${f}</span>`).join('');
-    }
-    if (data.url_consultada) {
-        sourcesHTML += `<a href="${data.url_consultada}" target="_blank" class="url-link">🔗 Ver fuente</a>`;
-    }
+    if (data.fuentes?.length) sourcesHTML += data.fuentes.map(f => `<span class="source-tag">${f}</span>`).join('');
+    if (data.url_consultada) sourcesHTML += `<a href="${data.url_consultada}" target="_blank" class="url-link">🔗 Ver fuente</a>`;
     document.getElementById('resultSources').innerHTML = sourcesHTML;
     document.getElementById('resultCard').classList.add('show');
-
-    if (data.necesita_experto) {
-        document.getElementById('expertCard').classList.add('show');
-    }
-
+    document.getElementById('expertCard').classList.add('show');
     document.getElementById('btnNueva').classList.add('show');
 }
 
-// ─── MOSTRAR RESPUESTA EDITORIAL ─────────────────────────────────────────────
 function mostrarEditorial(texto) {
     const formateado = texto.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     document.getElementById('editorialAnswer').innerHTML = formateado;
     document.getElementById('editorialCard').classList.add('show');
+    document.getElementById('expertCard').classList.add('show');
     document.getElementById('btnNueva').classList.add('show');
 }
 
-// ─── NUEVA BÚSQUEDA ───────────────────────────────────────────────────────────
 function nuevaBusqueda() {
     ocultarTodo();
     document.getElementById('searchInput').value = '';
+    removeMainImage();
     document.getElementById('searchInput').focus();
 }
 
-// ─── FORMULARIO DE EXPERTO ────────────────────────────────────────────────────
 function seleccionarContacto(tipo) {
     tipoContacto = tipo;
-    ['email', 'whatsapp', 'telegram'].forEach(t => {
-        document.getElementById(`opt-${t}`).classList.remove('active');
-    });
+    ['email', 'whatsapp', 'telegram'].forEach(t => document.getElementById(`opt-${t}`).classList.remove('active'));
     document.getElementById(`opt-${tipo}`).classList.add('active');
-
     const input = document.getElementById('expertInput');
     const submit = document.getElementById('expertSubmit');
+    const imgBtn = document.getElementById('expertImgBtn');
     input.classList.add('show');
     submit.classList.add('show');
-
+    imgBtn.classList.add('show');
     const placeholders = {
         email: 'Tu correo electrónico',
-        whatsapp: 'Tu número de WhatsApp (con código de país, ej: +1234567890)',
+        whatsapp: 'Tu número de WhatsApp (con código de país, ej: +57 300 000 0000)',
         telegram: 'Tu usuario de Telegram (ej: @tunombre)'
     };
     input.placeholder = placeholders[tipo];
@@ -546,11 +571,7 @@ function seleccionarContacto(tipo) {
 
 async function enviarContacto() {
     const contacto = document.getElementById('expertInput').value.trim();
-    if (!contacto) {
-        alert('Por favor ingresa tu contacto');
-        return;
-    }
-
+    if (!contacto) { alert('Por favor ingresa tu contacto'); return; }
     try {
         await fetch(`${API_URL}/experto`, {
             method: 'POST',
@@ -558,19 +579,17 @@ async function enviarContacto() {
             body: JSON.stringify({
                 pregunta: consultaPendiente,
                 tipo_contacto: tipoContacto,
-                contacto: contacto
+                contacto: contacto,
+                tiene_imagen: expertImageFile ? true : false
             })
         });
-    } catch (e) {
-        console.log('Error enviando:', e);
-    }
-
+    } catch (e) { console.log('Error enviando:', e); }
     document.getElementById('expertInput').classList.remove('show');
     document.getElementById('expertSubmit').classList.remove('show');
+    document.getElementById('expertImgBtn').classList.remove('show');
     document.getElementById('expertSuccess').classList.add('show');
 }
 
-// ─── HELPERS ──────────────────────────────────────────────────────────────────
 function ocultarTodo() {
     document.getElementById('errorMessage').style.display = 'none';
     document.getElementById('resultCard').classList.remove('show');
@@ -579,8 +598,11 @@ function ocultarTodo() {
     document.getElementById('expertSuccess').classList.remove('show');
     document.getElementById('expertInput').classList.remove('show');
     document.getElementById('expertSubmit').classList.remove('show');
+    document.getElementById('expertImgBtn').classList.remove('show');
+    document.getElementById('expertImgPreview').classList.remove('show');
     document.getElementById('btnNueva').classList.remove('show');
     tipoContacto = null;
+    expertImageFile = null;
 }
 
 function mostrarError(msg) {
@@ -594,15 +616,7 @@ function searchExample(query) {
 }
 
 document.getElementById('searchButton').addEventListener('click', buscar);
-document.getElementById('searchInput').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') buscar();
-});
-
-// Inicializar búsquedas recientes al cargar
-renderizarRecientes();
+document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') buscar(); });
 </script>
 </body>
 </html>
-```
-
-

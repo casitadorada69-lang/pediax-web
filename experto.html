@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué hace el experto? — PediaX</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: #1a1a1a;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+        h1 a {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #555;
+            text-decoration: none;
+            font-size: 0.85em;
+            margin-bottom: 30px;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: #ff6b6b; }
+        .page-title {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #e0e0e0;
+            margin-bottom: 8px;
+            margin-top: 24px;
+            text-align: center;
+        }
+        .subtitle {
+            color: #888;
+            margin-bottom: 36px;
+            font-size: 1em;
+            line-height: 1.6;
+            text-align: center;
+        }
+        .section { margin-bottom: 32px; }
+        .section-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .item-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .item-list li {
+            background: #2a2a2a;
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 0.95em;
+            color: #ccc;
+            line-height: 1.5;
+            border-left: 3px solid #ff6b6b;
+        }
+        .item-list li strong { color: #fff; }
+        .highlight-box {
+            background: #2a1a1a;
+            border: 1px solid #5a2a2a;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 32px;
+            color: #ccc;
+            line-height: 1.7;
+            font-size: 0.95em;
+        }
+        .highlight-box strong { color: #ff6b6b; }
+        .tip-box {
+            background: #1a2a1a;
+            border: 1px solid #2a4a2a;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 32px;
+            color: #ccc;
+            line-height: 1.7;
+            font-size: 0.95em;
+        }
+        .tip-box strong { color: #4ecdc4; }
+        .cta { text-align: center; margin-top: 10px; }
+        .cta a {
+            display: inline-block;
+            background: linear-gradient(135deg, #c0392b, #ff6b6b);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            padding: 14px 32px;
+            font-size: 1em;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        .cta a:hover { transform: scale(1.02); }
+        .divider { border: none; border-top: 1px solid #2a2a2a; margin: 28px 0; }
+        .footer-note { text-align: center; color: #444; font-size: 0.78em; margin-top: 30px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1><a href="/">🔞 PediaX</a></h1>
+    <a href="/" class="back-link">← Volver al inicio</a>
+
+    <div class="page-title">🧠 ¿Qué puede hacer el experto?</div>
+    <p class="subtitle">Nuestro equipo conoce la industria del entretenimiento adulto en profundidad. Si la búsqueda automática no encontró lo que necesitas, un experto puede responder directamente — sin costo.</p>
+
+    <div class="highlight-box">
+        <strong>¿Cómo funciona?</strong><br>
+        Haces tu pregunta, dejas tu contacto (email, WhatsApp o Telegram) y un experto te responde en menos de 24 horas. El servicio es completamente gratuito. Puedes adjuntar una imagen si tu pregunta lo requiere.
+    </div>
+
+    <div class="section">
+        <div class="section-title">🎭 Identificación de personas</div>
+        <ul class="item-list">
+            <li><strong>¿Quién es esta actriz o actor?</strong> — Adjunta una foto o describe la persona y el experto la identifica.</li>
+            <li><strong>Nombres artísticos y alias</strong> — Muchas actrices trabajan con varios nombres. El experto puede encontrar la persona detrás del alias.</li>
+            <li><strong>Actrices retiradas o con poca presencia online</strong> — Especialmente útil para figuras de los 80s, 90s y 2000s.</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <div class="section-title">🎬 Identificación de películas y escenas</div>
+        <ul class="item-list">
+            <li><strong>¿Cuál es el nombre de esta película?</strong> — A partir de una descripción de la escena, el año aproximado o los actores.</li>
+            <li><strong>Identificación por fotograma</strong> — Adjunta una captura de pantalla y el experto puede identificar la película o la actriz.</li>
+            <li><strong>Películas clásicas y de la Época de Oro</strong> — Títulos de los años 70s, 80s y 90s que son difíciles de encontrar online.</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <div class="section-title">📋 Datos biográficos y carrera</div>
+        <ul class="item-list">
+            <li><strong>Filmografía completa</strong> — Películas, estudios y años de una actriz o actor específico.</li>
+            <li><strong>Datos físicos detallados</strong> — Medidas, estatura, peso, tatuajes y otras características.</li>
+            <li><strong>Inicio y retiro de carrera</strong> — Cuándo empezó, si sigue activa, bajo qué condiciones se retiró.</li>
+            <li><strong>Premios y reconocimientos</strong> — AVN Awards, XBIZ Awards y otros galardones de la industria.</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <div class="section-title">🏢 Estudios y productoras</div>
+        <ul class="item-list">
+            <li><strong>Historia de estudios</strong> — Cuándo fue fundado, quién lo dirige, qué tipo de contenido produce.</li>
+            <li><strong>Relaciones entre estudios</strong> — Fusiones, adquisiciones, marcas relacionadas.</li>
+            <li><strong>Estudios independientes y europeos</strong> — Información sobre productoras menos conocidas o del mercado europeo y latinoamericano.</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <div class="section-title">🌍 Industria y cultura</div>
+        <ul class="item-list">
+            <li><strong>Historia de la industria</strong> — La Época de Oro, la revolución del VHS, la era digital.</li>
+            <li><strong>Legislación y regulación</strong> — Cómo funciona la industria en diferentes países.</li>
+            <li><strong>Plataformas y distribución</strong> — Diferencias entre plataformas, modelos de negocio, OnlyFans vs estudios tradicionales.</li>
+            <li><strong>Preguntas de cultura general</strong> — Cualquier duda relacionada con el entretenimiento adulto como industria.</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <div class="tip-box">
+        <strong>💡 Tip para mejores respuestas:</strong><br>
+        Cuanta más información des en tu pregunta, más precisa será la respuesta. Si buscas una actriz, menciona características físicas, el tipo de contenido, el año aproximado o el estudio. Si adjuntas una imagen, asegúrate de que sea clara y de buena calidad.
+    </div>
+
+    <div class="section">
+        <div class="section-title">❌ Lo que el experto NO hace</div>
+        <ul class="item-list">
+            <li>No proporciona links de descarga ni acceso a contenido protegido por derechos de autor.</li>
+            <li>No responde preguntas sobre personas menores de edad bajo ninguna circunstancia.</li>
+            <li>No facilita contacto directo con actrices o actores.</li>
+            <li>No responde preguntas que violen la legislación colombiana o internacional.</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <div class="cta">
+        <a href="/">🧠 Hacer una pregunta al experto</a>
+    </div>
+
+    <p class="footer-note">PediaX — Enciclopedia del entretenimiento para adultos · Solo para mayores de 18 años</p>
+</div>
+</body>
+</html>
