@@ -151,21 +151,45 @@
 
         .error-message { background: #2a1a1a; border-left: 4px solid #ff4444; padding: 20px; border-radius: 8px; color: #ff8888; display: none; margin-bottom: 20px; }
         .loading { text-align: center; color: #888; padding: 20px; display: none; }
-        .footer { margin-top: 20px; color: #555; font-size: 0.78em; text-align: center; line-height: 1.8; }
+
+        /* ── FOOTER LEGAL ── */
+        .footer-main {
+            margin-top: 20px;
+            color: #555;
+            font-size: 0.78em;
+            text-align: center;
+            line-height: 1.8;
+        }
+        .footer-legal {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #222;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 12px;
+            font-size: 0.72em;
+            color: #444;
+        }
+        .footer-legal a {
+            color: #444;
+            text-decoration: none;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+        .footer-legal a:hover { color: #ff4444; }
+        .footer-legal span { color: #2a2a2a; }
+
         #fileInput, #expertFileInput { display: none; }
 
-        /* ── FIX MÓVIL: top-left / top-right dejan de ser absolute en pantallas pequeñas ── */
+        /* ── FIX MÓVIL ── */
         @media (max-width: 600px) {
-            .container {
-                padding: 16px 16px 24px;
-            }
-            .top-left,
-            .top-right {
+            .container { padding: 16px 16px 24px; }
+            .top-left, .top-right {
                 position: static;
                 display: inline-flex;
                 align-items: center;
             }
-            /* Barra de navegación superior como fila horizontal */
             .top-nav-bar {
                 display: flex;
                 justify-content: space-between;
@@ -181,6 +205,7 @@
             .subtitle { font-size: 0.95em; margin-bottom: 24px; }
             .buttons-row { flex-direction: column; gap: 10px; }
             .button, .button-expert { width: 100%; }
+            .footer-legal { gap: 4px 10px; }
         }
     </style>
 </head>
@@ -192,9 +217,7 @@
             <a href="/experto.html">🧠 ¿Qué hace el experto?</a>
         </div>
         <div class="top-right">
-            <a href="/terminos.html">📋 Términos y Condiciones</a>
-            <span>|</span>
-            <a href="/privacidad.html">🔒 Privacidad</a>
+            <!-- vacío — los links legales bajaron al footer -->
         </div>
     </div>
 
@@ -266,9 +289,21 @@
 
     <button class="btn-nueva" id="btnNueva" onclick="nuevaBusqueda()">🔄 Nueva búsqueda</button>
 
-    <div class="footer">
+    <div class="footer-main">
         ⚡ Sin IA &nbsp;•&nbsp; Fuentes verificadas &nbsp;•&nbsp; 100% gratis &nbsp;•&nbsp; 🔒 No recopilamos tus datos
     </div>
+    <div class="footer-legal">
+        <a href="/terminos.html">📋 Términos y Condiciones</a>
+        <span>·</span>
+        <a href="/privacidad.html">🔒 Privacidad</a>
+        <span>·</span>
+        <a href="/quejas.html">📩 Quejas y DMCA</a>
+        <span>·</span>
+        <a href="/2257.html">🔞 Declaración 2257</a>
+        <span>·</span>
+        <a href="/antitrafficking.html">🚫 Política Antitrafficking</a>
+    </div>
+
 </div>
 
 <script>
