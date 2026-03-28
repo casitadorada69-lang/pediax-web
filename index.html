@@ -373,6 +373,7 @@
         <button class="modal-cta" onclick="document.getElementById('modalQuienesSomos').classList.remove('show'); mostrarExpertoDirecto();">🧠 Pregúntale a un experto ahora</button>
     </div>
 </div>
+<script>
 const API_URL = 'https://pediax-api.casitadorada69.workers.dev';
 let tipoContacto = null;
 let consultaPendiente = '';
@@ -548,4 +549,11 @@ function ocultarTodo() {
     tipoContacto = null; expertImageFile = null;
 }
 
-function mostrarError(msg) { document.getElementById('errorMes
+function mostrarError(msg) { document.getElementById('errorMessage').textContent = msg; document.getElementById('errorMessage').style.display = 'block'; }
+function searchExample(query) { document.getElementById('searchInput').value = query; buscar(); }
+
+document.getElementById('searchButton').addEventListener('click', buscar);
+document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') buscar(); });
+</script>
+</body>
+</html>
