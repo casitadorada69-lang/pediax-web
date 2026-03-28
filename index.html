@@ -117,23 +117,24 @@
         .url-link { font-size: 0.8em; color: #666; text-decoration: none; }
         .url-link:hover { color: #4ecdc4; }
 
-        .expert-card { background: #1a2a2a; border: 1px solid #2a5a5a; border-radius: 16px; padding: 25px; display: none; margin-bottom: 20px; }
+        .expert-card { background: #0d1e2e; border: 1px solid #1a6080; border-radius: 16px; padding: 25px; display: none; margin-bottom: 20px; }
         .expert-card.show { display: block; }
         .expert-title { font-size: 1.1em; font-weight: bold; color: #ff3333; margin-bottom: 8px; }
         .expert-subtitle { font-size: 0.9em; color: #888; margin-bottom: 20px; }
         .expert-options { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
-        .expert-option { background: #1e3333; border: 1px solid #2a5a5a; border-radius: 50px; padding: 8px 16px; cursor: pointer; font-size: 0.9em; color: #aaa; transition: all 0.2s; }
-        .expert-option.active { border-color: #4ecdc4; color: #4ecdc4; background: #1a2e2e; }
-        .privacy-note { font-size: 0.78em; color: #555; margin-bottom: 12px; }
+        .expert-option { background: #0d2233; border: 1px solid #1a6080; border-radius: 50px; padding: 8px 16px; cursor: pointer; font-size: 0.9em; color: #aaa; transition: all 0.2s; display: flex; align-items: center; gap: 7px; }
+        .expert-option.active { border-color: #4ecdc4; color: #4ecdc4; background: #0d2a36; }
+        .expert-option svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .privacy-note { font-size: 0.78em; color: #5a8099; margin-bottom: 12px; }
         .expert-input-wrapper { position: relative; }
-        .expert-input { background: #1e3333; border: 1px solid #2a5a5a; border-radius: 12px; padding: 12px 45px 12px 16px; width: 100%; font-size: 1em; color: white; outline: none; margin-bottom: 12px; display: none; }
+        .expert-input { background: #0d2233; border: 1px solid #1a6080; border-radius: 12px; padding: 12px 45px 12px 16px; width: 100%; font-size: 1em; color: white; outline: none; margin-bottom: 12px; display: none; }
         .expert-input.show { display: block; }
-        .expert-input:focus { border-color: #ff3333; }
+        .expert-input:focus { border-color: #4ecdc4; }
         .expert-input::placeholder { color: #666; }
         .expert-img-btn { position: absolute; right: 12px; top: 12px; background: none; border: none; cursor: pointer; color: #666; font-size: 1.1em; transition: color 0.2s; display: none; }
         .expert-img-btn.show { display: block; }
         .expert-img-btn:hover { color: #ff3333; }
-        .expert-img-preview { display: none; background: #1e3333; border: 1px solid #2a5a5a; border-radius: 12px; padding: 10px 15px; margin-bottom: 12px; font-size: 0.85em; color: #888; align-items: center; gap: 10px; }
+        .expert-img-preview { display: none; background: #0d2233; border: 1px solid #1a6080; border-radius: 12px; padding: 10px 15px; margin-bottom: 12px; font-size: 0.85em; color: #888; align-items: center; gap: 10px; }
         .expert-img-preview.show { display: flex; }
         .expert-img-preview img { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; }
         .expert-submit { background: #cc2200; color: white; border: none; border-radius: 50px; padding: 12px 24px; font-size: 1em; font-weight: bold; cursor: pointer; width: 100%; transition: opacity 0.2s, transform 0.2s; display: none; }
@@ -181,9 +182,23 @@
         .footer-legal a:hover { color: #ff4444; }
         .footer-legal span { color: #2a2a2a; }
 
-        #fileInput, #expertFileInput { display: none; }
+        /* ── MODAL QUIÉNES SOMOS ── */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-overlay.show { display: flex; }
+        .modal-box { background: #1a1a1a; border: 1px solid #333; border-radius: 20px; padding: 36px; max-width: 680px; width: 100%; max-height: 88vh; overflow-y: auto; position: relative; }
+        .modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: #555; font-size: 1.4em; cursor: pointer; transition: color 0.2s; line-height: 1; }
+        .modal-close:hover { color: #ff4444; }
+        .modal-title { font-size: 1.35em; font-weight: bold; color: #ff3333; margin-bottom: 18px; }
+        .modal-box p { color: #bbb; line-height: 1.75; margin-bottom: 14px; font-size: 0.97em; }
+        .modal-box h3 { color: #e0e0e0; font-size: 1.05em; margin: 20px 0 8px; }
+        .modal-box ul { color: #bbb; line-height: 1.8; margin: 0 0 14px 20px; font-size: 0.97em; }
+        .modal-box a { color: #4ecdc4; text-decoration: none; }
+        .modal-box a:hover { text-decoration: underline; }
+        .modal-cta { display: inline-block; margin-top: 10px; background: #cc2200; color: white; border: none; border-radius: 50px; padding: 12px 28px; font-size: 1em; font-weight: bold; cursor: pointer; transition: opacity 0.2s; }
+        .modal-cta:hover { opacity: 0.85; }
+    </style>
 
-        /* ── FIX MÓVIL ── */
+        #fileInput, #expertFileInput { display: none; }
         @media (max-width: 600px) {
             .container { padding: 16px 16px 24px; }
             .top-left, .top-right {
@@ -218,8 +233,8 @@
             <a href="/experto.html">🧠 ¿Qué hace el experto?</a>
         </div>
         <div class="top-right">
-            <!-- vacío — los links legales bajaron al footer -->
-        </div>
+                <a href="#" onclick="document.getElementById('modalQuienesSomos').classList.add('show'); return false;">👥 ¿Quiénes somos?</a>
+            </div>
     </div>
 
     <h1><a href="/">🔞 PediaXXX</a></h1>
@@ -265,9 +280,18 @@
         <div class="expert-title">🧠 ¿No encontraste lo que buscabas?</div>
         <div class="expert-subtitle">Un experto puede responder tu pregunta sin costo. Dinos a dónde enviarte la respuesta:</div>
         <div class="expert-options">
-            <div class="expert-option" onclick="seleccionarContacto('email')" id="opt-email">📧 Email</div>
-            <div class="expert-option" onclick="seleccionarContacto('whatsapp')" id="opt-whatsapp">💬 WhatsApp</div>
-            <div class="expert-option" onclick="seleccionarContacto('telegram')" id="opt-telegram">✈️ Telegram</div>
+            <div class="expert-option" onclick="seleccionarContacto('email')" id="opt-email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+                Email
+            </div>
+            <div class="expert-option" onclick="seleccionarContacto('whatsapp')" id="opt-whatsapp">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                WhatsApp
+            </div>
+            <div class="expert-option" onclick="seleccionarContacto('telegram')" id="opt-telegram">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                Telegram
+            </div>
         </div>
         <div class="privacy-note">🔒 No recopilamos tus datos. Solo los usamos para enviarte la respuesta.</div>
         <div class="expert-input-wrapper">
@@ -307,7 +331,49 @@
 
 </div>
 
-<script>
+<!-- ══ MODAL QUIÉNES SOMOS ══ -->
+<div class="modal-overlay" id="modalQuienesSomos" onclick="if(event.target===this)this.classList.remove('show')">
+    <div class="modal-box">
+        <button class="modal-close" onclick="document.getElementById('modalQuienesSomos').classList.remove('show')">✕</button>
+
+        <div class="modal-title">👥 QUIÉNES SOMOS</div>
+
+        <p>Bienvenido a <strong>PediaXXX</strong>, el recurso informativo más preciso y profesional sobre la industria del entretenimiento para adultos.<br>
+        Nuestra misión es simple: transformar la curiosidad en conocimiento verificado a través de una plataforma centralizada, seria y eficiente.</p>
+
+        <h3>¿Qué es PediaXXX?</h3>
+        <p>A diferencia de otros sitios, PediaXXX no es un portal de videos ni de contenido explícito. Somos una herramienta de consulta documental; nos especializamos en proporcionar datos técnicos, trayectorias y filmografías con detalles sobre actrices, actores, películas y estudios de grabación.</p>
+
+        <h3>Información Real, Sin Alucinaciones de IA</h3>
+        <p>En un mundo saturado de respuestas automatizadas, en PediaXXX marcamos la diferencia: <strong>No utilizamos Inteligencia Artificial.</strong><br>
+        Sabemos que la IA a menudo "alucina" o inventa datos inexactos. Por eso, nuestro sistema y nuestro equipo consultan exclusivamente fuentes fidedignas y probadas (como IAFD, Boobpedia, Babepedia, FreeOnes y Wikipedia, entre otras) para comparar y construir respuestas basadas en datos reales.</p>
+
+        <h3>Tu Privacidad es nuestra Prioridad</h3>
+        <p>Entendemos la importancia de la discreción y por ello, aplicamos una política de Discreción Absoluta:</p>
+        <ul>
+            <li><strong>No almacenamos tus datos:</strong> Una vez que tu consulta ha sido resuelta y enviada, eliminamos de nuestros registros la información de contacto compartida.</li>
+            <li><strong>Formato Seguro:</strong> Solo enviamos texto y enlaces informativos; nunca archivos multimedia explícitos (ni imágenes ni videos).</li>
+        </ul>
+
+        <h3>Omnicanalidad: Donde tú estés</h3>
+        <p>Queremos facilitar tu acceso a la información. Puedes interactuar con nosotros a través de:</p>
+        <ul>
+            <li>Nuestra plataforma web: <a href="https://www.pediaxxx.com" target="_blank">www.pediaxxx.com</a></li>
+            <li>Nuestro Bot de Telegram: <a href="https://t.me/PediaXXXbot" target="_blank">@PediaXXXbot</a></li>
+        </ul>
+        <p>Si el sistema automatizado no satisface tu duda, tienes la opción de elevar tu consulta a un experto humano, quien te responderá directamente a tu Email, WhatsApp o Telegram con la precisión que solo el criterio humano puede ofrecer.</p>
+
+        <h3>Contacto Oficial</h3>
+        <ul>
+            <li>Consultas Generales: <a href="mailto:info@pediaxxx.com">info@pediaxxx.com</a></li>
+            <li>Administración y Soporte: <a href="mailto:admin@pediaxxx.com">admin@pediaxxx.com</a></li>
+            <li>Dudas Especializadas: <a href="mailto:preguntas@pediaxxx.com">preguntas@pediaxxx.com</a></li>
+        </ul>
+
+        <p>¿Tienes una duda que nadie ha podido resolver?</p>
+        <button class="modal-cta" onclick="document.getElementById('modalQuienesSomos').classList.remove('show'); mostrarExpertoDirecto();">🧠 Pregúntale a un experto ahora</button>
+    </div>
+</div>
 const API_URL = 'https://pediax-api.casitadorada69.workers.dev';
 let tipoContacto = null;
 let consultaPendiente = '';
