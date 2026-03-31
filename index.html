@@ -502,13 +502,93 @@ async function buscar() {
     }
 }
 
+function construirRespuestaEnriquecida(data) {
+    const base = data && data.respuesta ? String(data.respuesta) : '';
+    return base + construirBloqueDatosAdicionales(data);
+}
+
+function construirBloqueDatosAdicionales(data) {
+    if (!data || !data.datos) return '';
+
+    const d = data.datos;
+    const lineas = [];
+    const respuestaActual = (data.respuesta || '').toLowerCase();
+    const yaIncluye = (txt) => respuestaActual.includes(String(txt).toLowerCase());
+
+    const nacimiento = limpiarValor(d.nacimiento);
+    if (nacimiento && !yaIncluye('nacimiento')) lineas.push(`📅 Nacimiento: ${nacimiento}`);
+
+    const ciudad = limpiarValor(d.ciudad);
+    if (ciudad && !yaIncluye('lugar:')) lineas.push(`📍 Lugar: ${ciudad}`);
+
+    const pais = limpiarValor(d.pais);
+    if (pais && !yaIncluye('país:')) lineas.push(`🌎 País: ${pais}`);
+
+    const nacionalidad = limpiarValor(d.nacionalidad).replace(/^\((.*)\),?$/, '$1').trim();
+    if (nacionalidad && !yaIncluye('nacionalidad:') && !yaIncluye('origen:')) {
+        lineas.push(`🌐 Nacionalidad: ${nacionalidad}`);
+    }
+
+    const estatura = limpiarValor(d.estatura);
+    if (estatura && !yaIncluye('estatura:')) lineas.push(`📏 Estatura: ${estatura}`);
+
+    const peso = limpiarValor(d.peso);
+    if (peso && !yaIncluye('peso:')) lineas.push(`⚖️ Peso: ${peso}`);
+
+    const medidas = convertirMedidasACmSiAplica(limpiarValor(d.medidas));
+    if (medidas && !yaIncluye('medidas:')) lineas.push(`📐 Medidas: ${medidas}`);
+
+    const etnia = limpiarValor(d.etnia);
+    if (etnia && !yaIncluye('etnia:')) lineas.push(`🧬 Etnia: ${etnia}`);
+
+    const debut = limpiarValor(d.debut);
+    const retiro = limpiarValor(d.retiro);
+    if (debut && !yaIncluye('activo/a desde:') && !yaIncluye('carrera:')) {
+        lineas.push(retiro ? `🎬 Carrera: ${debut}–${retiro}` : `🎬 Activo/a desde: ${debut}`);
+    }
+
+    const onlyfans = limpiarValor(d.onlyfans);
+    if (onlyfans && !yaIncluye('onlyfans:')) lineas.push(`🔞 OnlyFans: ${onlyfans}`);
+
+    const instagram = limpiarValor(d.instagram);
+    if (instagram && !yaIncluye('instagram:')) lineas.push(`📸 Instagram: ${instagram}`);
+
+    const twitter = limpiarValor(d.twitter);
+    if (twitter && !yaIncluye('twitter/x:')) lineas.push(`🐦 Twitter/X: ${twitter}`);
+
+    if (lineas.length === 0) return '';
+    return `\n\n📋 **Datos adicionales:**\n${lineas.join('\n')}`;
+}
+
+function limpiarValor(v) {
+    if (v === null || v === undefined) return '';
+    return String(v).replace(/\s+/g, ' ').trim();
+}
+
+function convertirMedidasACmSiAplica(medidas) {
+    if (!medidas || typeof medidas !== 'string') return null;
+    const limpio = medidas.trim();
+    const partes = limpio.split('-');
+    if (partes.length !== 3) return limpio;
+
+    const nums = partes.map(p => parseInt(p, 10));
+    if (nums.some(n => Number.isNaN(n))) return limpio;
+
+    const parecenPulgadas = nums[0] < 70 && nums[1] < 70 && nums[2] < 70;
+    if (!parecenPulgadas) return limpio;
+
+    const enCm = nums.map(n => Math.round(n * 2.54));
+    return `${enCm[0]}-${enCm[1]}-${enCm[2]} cm`;
+}
+
 function mostrarResultado(data, query) {
     let emoji = '🟢';
+    const respuestaEnriquecida = construirRespuestaEnriquecida(data);
+    const formateado = respuestaEnriquecida.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     if (data.confianza < 0.4) emoji = '🔴';
     else if (data.confianza < 0.7) emoji = '🟡';
     document.getElementById('resultEmoji').textContent = emoji;
     document.getElementById('resultQuery').textContent = data.consulta_interpretada ? `${query} → ${data.consulta_interpretada}` : query;
-    const formateado = (data.respuesta || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     document.getElementById('resultAnswer').innerHTML = formateado;
     let sourcesHTML = '';
     if (data.fuentes?.length) sourcesHTML += data.fuentes.map(f => `<span class="source-tag">${f}</span>`).join('');
