@@ -538,8 +538,26 @@ function construirBloqueDatosAdicionales(data) {
     const medidas = convertirMedidasACmSiAplica(limpiarValor(d.medidas));
     if (medidas && !yaIncluye('medidas:')) lineas.push(`📐 Medidas: ${medidas}`);
 
+    const copa = limpiarValor(d.copa);
+    if (copa && !yaIncluye('copa')) lineas.push(`👙 Copa: ${copa}`);
+
     const etnia = limpiarValor(d.etnia);
     if (etnia && !yaIncluye('etnia:')) lineas.push(`🧬 Etnia: ${etnia}`);
+
+    const bodyType = limpiarValor(d.body_type);
+    if (bodyType && !yaIncluye('tipo de cuerpo')) lineas.push(`🧍 Tipo de cuerpo: ${bodyType}`);
+
+    const eyeColor = limpiarValor(d.eye_color);
+    if (eyeColor && !yaIncluye('ojos:')) lineas.push(`👁️ Ojos: ${eyeColor}`);
+
+    const hairColor = limpiarValor(d.hair_color);
+    if (hairColor && !yaIncluye('cabello:')) lineas.push(`💇 Cabello: ${hairColor}`);
+
+    const underarmHair = limpiarValor(d.underarm_hair);
+    if (underarmHair && !yaIncluye('vello axilar')) lineas.push(`🪒 Vello axilar: ${underarmHair}`);
+
+    const pubicHair = limpiarValor(d.pubic_hair);
+    if (pubicHair && !yaIncluye('vello púbico')) lineas.push(`🪒 Vello púbico: ${pubicHair}`);
 
     const debut = limpiarValor(d.debut);
     const retiro = limpiarValor(d.retiro);
@@ -555,6 +573,49 @@ function construirBloqueDatosAdicionales(data) {
 
     const twitter = limpiarValor(d.twitter);
     if (twitter && !yaIncluye('twitter/x:')) lineas.push(`🐦 Twitter/X: ${twitter}`);
+
+    const twitterAlt = limpiarValor(d.twitter_alt);
+    if (twitterAlt && !yaIncluye('twitter/x (alt):')) lineas.push(`🐦 Twitter/X (alt): ${twitterAlt}`);
+
+    const instagramAlt = limpiarValor(d.instagram_alt);
+    if (instagramAlt && !yaIncluye('instagram (alt):')) lineas.push(`📸 Instagram (alt): ${instagramAlt}`);
+
+    const tiktok = limpiarValor(d.tiktok);
+    if (tiktok && !yaIncluye('tiktok:')) lineas.push(`🎵 TikTok: ${tiktok}`);
+
+    const facebook = limpiarValor(d.facebook);
+    if (facebook && !yaIncluye('facebook:')) lineas.push(`👍 Facebook: ${facebook}`);
+
+    const youtube = limpiarValor(d.youtube);
+    if (youtube && !yaIncluye('youtube:')) lineas.push(`▶️ YouTube: ${youtube}`);
+
+    const blog = limpiarValor(d.blog);
+    if (blog && !yaIncluye('blog:')) lineas.push(`✍️ Blog: ${blog}`);
+
+    const links = limpiarValor(d.links);
+    if (links && !yaIncluye('links:')) lineas.push(`🔗 Links: ${links}`);
+
+    const nombreReal = limpiarValor(d.nombre_real);
+    if (nombreReal && !yaIncluye('nombre real:')) lineas.push(`🪪 Nombre real: ${nombreReal}`);
+
+    if (Array.isArray(d.aka) && d.aka.length && !yaIncluye('también conocido/a como')) {
+        lineas.push(`🏷️ AKA: ${d.aka.slice(0, 10).join(', ')}`);
+    }
+
+    const shown = limpiarValor(d.shown);
+    if (shown && !yaIncluye('shown:')) lineas.push(`🎭 Shown: ${shown}`);
+
+    const solo = limpiarValor(d.solo);
+    if (solo && !yaIncluye('solo:')) lineas.push(`🎭 Solo: ${solo}`);
+
+    const girlgirl = limpiarValor(d.girlgirl);
+    if (girlgirl && !yaIncluye('girl/girl:')) lineas.push(`🎭 Girl/Girl: ${girlgirl}`);
+
+    const boygirl = limpiarValor(d.boygirl);
+    if (boygirl && !yaIncluye('boy/girl:')) lineas.push(`🎭 Boy/Girl: ${boygirl}`);
+
+    const special = limpiarValor(d.special);
+    if (special && !yaIncluye('especial:')) lineas.push(`✨ Especial: ${special}`);
 
     if (lineas.length === 0) return '';
     return `\n\n📋 **Datos adicionales:**\n${lineas.join('\n')}`;
