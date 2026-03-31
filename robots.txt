@@ -1,0 +1,55 @@
+# Robots.txt para PediaXXX
+# Permite que los buscadores indexen todo el sitio
+
+# Para todos los buscadores
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /experto.html
+Allow: /quienes.html
+Allow: /terminos.html
+Allow: /privacidad.html
+Allow: /quejas.html
+Allow: /2257.html
+Allow: /antitrafficking.html
+
+# Disallow archivos que no queremos indexar
+Disallow: /admin/
+Disallow: /*.json
+Disallow: /api/
+
+# Indica el sitemap de Google
+Sitemap: https://www.pediaxxx.com/sitemap.xml
+
+# Configuración para Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Configuración para Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Rastreo (permitir rastreadores específicos)
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: baiduspider
+Allow: /
+Crawl-delay: 2
+
+# Deshabilitamos buscadores menos comunes
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: SemrushBot
+Allow: /
+
+# Mapa del sitio
+Sitemap: https://www.pediaxxx.com/sitemap.xml
