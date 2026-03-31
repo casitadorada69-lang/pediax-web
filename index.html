@@ -547,6 +547,9 @@ function construirBloqueDatosAdicionales(data) {
     const bodyType = limpiarValor(d.body_type);
     if (bodyType && !yaIncluye('tipo de cuerpo')) lineas.push(`🧍 Tipo de cuerpo: ${bodyType}`);
 
+    const boobs = limpiarValor(d.boobs);
+    if (boobs && !yaIncluye('senos:')) lineas.push(`💦 Senos: ${boobs}`);
+
     const eyeColor = limpiarValor(d.eye_color);
     if (eyeColor && !yaIncluye('ojos:')) lineas.push(`👁️ Ojos: ${eyeColor}`);
 
