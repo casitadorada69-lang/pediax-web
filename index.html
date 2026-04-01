@@ -419,9 +419,33 @@ function removeMainImage() { mainImageFile = null; document.getElementById('file
 function handleExpertImage(e) {
     const file = e.target.files[0]; if (!file) return;
     expertImageFile = file;
-    const reader = new FileReader();
-    reader.onload = ev => { document.getElementById('expertImgThumb').src = ev.target.result; document.getElementById('expertImgName').textContent = file.name; document.getElementById('expertImgPreview').classList.add('show'); };
-    reader.readAsDataURL(file);
+    // Mostrar preview comprimida para que el usuario vea lo que adjuntó
+    comprimirImagen(file, 800, 0.82).then(b64 => {
+        document.getElementById('expertImgThumb').src = b64;
+        document.getElementById('expertImgName').textContent = file.name + ' (' + Math.round(file.size/1024) + ' KB)';
+        document.getElementById('expertImgPreview').classList.add('show');
+    });
+}
+
+// Comprime la imagen a máximo maxW píxeles de ancho y calidad q (0-1)
+// Devuelve una promesa con el dataURL JPEG resultante
+function comprimirImagen(file, maxW, q) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            const img = new Image();
+            img.onload = () => {
+                let w = img.width, h = img.height;
+                if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+                const canvas = document.createElement('canvas');
+                canvas.width = w; canvas.height = h;
+                canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                resolve(canvas.toDataURL('image/jpeg', q));
+            };
+            img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
 }
 function removeExpertImage() { expertImageFile = null; document.getElementById('expertFileInput').value = ''; document.getElementById('expertImgPreview').classList.remove('show'); }
 
@@ -696,12 +720,11 @@ async function enviarContacto() {
     if (!contacto) { alert('Por favor ingresa tu contacto'); return; }
     
     let imagenBase64 = null;
+    let nombreArchivo = null;
     if (expertImageFile) {
-        imagenBase64 = await new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onload = (e) => resolve(e.target.result);
-            reader.readAsDataURL(expertImageFile);
-        });
+        // Comprimir a máx 800px ancho y calidad 0.82 → aprox 100-250 KB
+        imagenBase64 = await comprimirImagen(expertImageFile, 800, 0.82);
+        nombreArchivo = expertImageFile.name.replace(/\.[^.]+$/, '') + '_pediaxxx.jpg';
     }
     
     try {
@@ -712,9 +735,9 @@ async function enviarContacto() {
                 pregunta: consultaPendiente, 
                 tipo_contacto: tipoContacto, 
                 contacto: contacto, 
-                tiene_imagen: expertImageFile ? true : false,
+                tiene_imagen: !!imagenBase64,
                 imagen_base64: imagenBase64,
-                nombre_archivo: expertImageFile ? expertImageFile.name : null
+                nombre_archivo: nombreArchivo
             })
         });
     } catch (e) { console.log('Error enviando:', e); }
