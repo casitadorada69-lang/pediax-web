@@ -732,6 +732,9 @@ async function enviarContacto() {
             });
             const data = await response.json();
             console.log("Respuesta completa de ImgBB:", data);
+            if (!data || !data.data || !data.data.url) {
+                console.error('ImgBB error:', data);
+            }
             imageUrl = data && data.data && data.data.url ? data.data.url : null;
             console.log("URL que se enviará al Worker:", imageUrl);
         } catch (e) {
