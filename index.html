@@ -419,12 +419,14 @@ function removeMainImage() { mainImageFile = null; document.getElementById('file
 function handleExpertImage(e) {
     const file = e.target.files[0]; if (!file) return;
     expertImageFile = file;
-    // Mostrar preview comprimida para que el usuario vea lo que adjuntó
-    comprimirImagen(file, 800, 0.82).then(b64 => {
-        document.getElementById('expertImgThumb').src = b64;
+    // Mostrar preview para que el usuario vea lo que adjuntó
+    const reader = new FileReader();
+    reader.onload = ev => {
+        document.getElementById('expertImgThumb').src = ev.target.result;
         document.getElementById('expertImgName').textContent = file.name + ' (' + Math.round(file.size/1024) + ' KB)';
         document.getElementById('expertImgPreview').classList.add('show');
-    });
+    };
+    reader.readAsDataURL(file);
 }
 
 // Comprime la imagen a máximo maxW píxeles de ancho y calidad q (0-1)
@@ -715,29 +717,61 @@ function seleccionarContacto(tipo) {
     input.value = ''; input.focus();
 }
 
+// Sube la imagen directamente a ImgBB desde el navegador (sin pasar por el Worker)
+// Devuelve la URL pública o null si falla
+async function uploadToImgBB(file) {
+    const IMGBB_API_KEY = 'TU_API_KEY_IMGBB'; // ← reemplaza con tu key de imgbb.com
+    try {
+        // Comprimir antes de subir (máx 1200px, calidad 0.85)
+        const b64 = await comprimirImagen(file, 1200, 0.85);
+        // ImgBB espera solo el dato base64 sin el prefijo data:image/...;base64,
+        const base64puro = b64.split(',')[1];
+
+        const form = new FormData();
+        form.append('image', base64puro);
+
+        const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+            method: 'POST',
+            body: form
+        });
+        const data = await res.json();
+        if (data.success) return data.data.url;  // URL pública permanente
+        console.warn('ImgBB error:', data);
+        return null;
+    } catch (e) {
+        console.warn('Error subiendo a ImgBB:', e);
+        return null;
+    }
+}
+
 async function enviarContacto() {
     const contacto = document.getElementById('expertInput').value.trim();
     if (!contacto) { alert('Por favor ingresa tu contacto'); return; }
-    
-    let imagenBase64 = null;
-    let nombreArchivo = null;
+
+    // Cambiar botón a estado cargando
+    const btn = document.getElementById('expertSubmit');
+    const textoOriginal = btn.textContent;
+    btn.textContent = expertImageFile ? '📤 Subiendo imagen...' : '⏳ Enviando...';
+    btn.disabled = true;
+
+    // 1. Subir imagen directamente al CDN desde el navegador (sin pasar por el Worker)
+    let imagenUrl = null;
     if (expertImageFile) {
-        // Comprimir a máx 800px ancho y calidad 0.82 → aprox 100-250 KB
-        imagenBase64 = await comprimirImagen(expertImageFile, 800, 0.82);
-        nombreArchivo = expertImageFile.name.replace(/\.[^.]+$/, '') + '_pediaxxx.jpg';
+        imagenUrl = await uploadToImgBB(expertImageFile);
+        btn.textContent = '⏳ Enviando...';
     }
-    
+
+    // 2. Enviar al Worker SOLO el texto + la URL (el Worker no toca binarios)
     try {
         await fetch(`${API_URL}/experto`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                pregunta: consultaPendiente, 
-                tipo_contacto: tipoContacto, 
-                contacto: contacto, 
-                tiene_imagen: !!imagenBase64,
-                imagen_base64: imagenBase64,
-                nombre_archivo: nombreArchivo
+            body: JSON.stringify({
+                pregunta: consultaPendiente,
+                tipo_contacto: tipoContacto,
+                contacto: contacto,
+                tiene_imagen: !!imagenUrl,
+                imagen_url: imagenUrl          // ← URL pública, no base64
             })
         });
     } catch (e) { console.log('Error enviando:', e); }
