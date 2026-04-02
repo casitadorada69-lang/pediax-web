@@ -364,10 +364,6 @@
             </div>
         </div>
         <div class="privacy-note">🔒 No recopilamos tus datos. Solo los usamos para enviarte la respuesta.</div>
-        <div id="telegramLinkBox" class="privacy-note" style="display:none; margin-top:8px;">
-            <span id="telegramLinkStatus">🔗 Conecta tu Telegram para poder recibir la respuesta.</span>
-            <a id="telegramDeepLinkBtn" href="#" target="_blank" rel="noopener" class="url-link" style="display:none; margin-left:8px;">Conectar Telegram</a>
-        </div>
         <div class="expert-input-wrapper">
             <input type="text" class="expert-input" id="expertInput" placeholder="">
             <button class="expert-img-btn" id="expertImgBtn" title="Adjuntar imagen"
@@ -411,9 +407,6 @@ let tipoContacto = null;
 let consultaPendiente = '';
 let mainImageFile = null;
 let expertImageFile = null;
-let telegramLinkToken = null;
-let telegramLinkVerified = false;
-let telegramLinkPollId = null;
 
 function handleMainImage(e) {
     const file = e.target.files[0]; if (!file) return;
@@ -710,77 +703,6 @@ function nuevaBusqueda() {
     document.getElementById('searchInput').focus();
 }
 
-function resetTelegramLinkState() {
-    telegramLinkToken = null;
-    telegramLinkVerified = false;
-    if (telegramLinkPollId) {
-        clearInterval(telegramLinkPollId);
-        telegramLinkPollId = null;
-    }
-}
-
-function actualizarUIConexionTelegram(mensaje, mostrarBoton = false, deepLink = '') {
-    const box = document.getElementById('telegramLinkBox');
-    const status = document.getElementById('telegramLinkStatus');
-    const btn = document.getElementById('telegramDeepLinkBtn');
-
-    box.style.display = 'block';
-    status.textContent = mensaje;
-    if (mostrarBoton && deepLink) {
-        btn.href = deepLink;
-        btn.style.display = 'inline-block';
-    } else {
-        btn.href = '#';
-        btn.style.display = 'none';
-    }
-}
-
-async function crearDeepLinkTelegram() {
-    try {
-        const res = await fetch(`${API_URL}/telegram/link/create`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contacto: document.getElementById('expertInput').value.trim() || '' })
-        });
-        const data = await res.json();
-        if (!res.ok || !data.ok) throw new Error(data.error || 'No se pudo crear enlace de Telegram');
-
-        telegramLinkToken = data.token;
-        telegramLinkVerified = false;
-        actualizarUIConexionTelegram('🔗 Conecta tu Telegram y pulsa Start en el bot.', true, data.deep_link);
-        iniciarPollingDeepLinkTelegram();
-    } catch (e) {
-        actualizarUIConexionTelegram(`⚠️ ${e.message}`, false, '');
-    }
-}
-
-async function revisarEstadoDeepLinkTelegram() {
-    if (!telegramLinkToken) return;
-    try {
-        const res = await fetch(`${API_URL}/telegram/link/status?token=${encodeURIComponent(telegramLinkToken)}`);
-        const data = await res.json();
-        if (!res.ok || !data.ok) return;
-
-        if (data.verified) {
-            telegramLinkVerified = true;
-            const usuario = data.username || 'tu cuenta';
-            actualizarUIConexionTelegram(`✅ Telegram conectado: ${usuario}`, false, '');
-            if (telegramLinkPollId) {
-                clearInterval(telegramLinkPollId);
-                telegramLinkPollId = null;
-            }
-        }
-    } catch (_) {
-        // Silencioso: se reintenta en el siguiente ciclo
-    }
-}
-
-function iniciarPollingDeepLinkTelegram() {
-    if (telegramLinkPollId) clearInterval(telegramLinkPollId);
-    telegramLinkPollId = setInterval(revisarEstadoDeepLinkTelegram, 3500);
-    revisarEstadoDeepLinkTelegram();
-}
-
 function seleccionarContacto(tipo) {
     tipoContacto = tipo;
     ['email', 'whatsapp', 'telegram'].forEach(t => document.getElementById(`opt-${t}`).classList.remove('active'));
@@ -789,33 +711,17 @@ function seleccionarContacto(tipo) {
     const submit = document.getElementById('expertSubmit');
     const imgBtn = document.getElementById('expertImgBtn');
     input.classList.add('show'); submit.classList.add('show'); imgBtn.classList.add('show');
-    const placeholders = { email: 'Tu correo electrónico', whatsapp: 'Tu número de WhatsApp (con código de país, ej: +57 300 000 0000)', telegram: 'Usuario de Telegram (@tunombre) o teléfono (con código de país, ej: +57 300 000 0000)' };
+    const placeholders = { email: 'Tu correo electrónico', whatsapp: 'Tu número de WhatsApp (con código de país, ej: +57 300 000 0000)', telegram: 'Usuario de Telegram (@tunombre)' };
     input.placeholder = placeholders[tipo];
     input.value = ''; input.focus();
-
-    if (tipo === 'telegram') {
-        resetTelegramLinkState();
-        actualizarUIConexionTelegram('🔗 Preparando enlace de conexión de Telegram...', false, '');
-        crearDeepLinkTelegram();
-    } else {
-        resetTelegramLinkState();
-        document.getElementById('telegramLinkBox').style.display = 'none';
-    }
 }
 
 async function enviarContacto() {
     const contacto = document.getElementById('expertInput').value.trim();
     if (!contacto) { alert('Por favor ingresa tu contacto'); return; }
-    if (tipoContacto === 'telegram') {
-        if (!telegramLinkToken) {
-            alert('Primero debes conectar Telegram.');
-            return;
-        }
-        await revisarEstadoDeepLinkTelegram();
-        if (!telegramLinkVerified) {
-            alert('Aún no detecto la conexión de Telegram. Abre el enlace, pulsa Start en el bot y vuelve a intentar.');
-            return;
-        }
+    if (tipoContacto === 'telegram' && !/^@[a-zA-Z0-9_]{5,32}$/.test(contacto)) {
+        alert('Para Telegram escribe un usuario válido en formato @usuario (5-32 caracteres, letras, números y _).');
+        return;
     }
     
     let imageUrl = null;
@@ -850,23 +756,17 @@ async function enviarContacto() {
         }
     }
     try {
-        const respuestaExperto = await fetch(`${API_URL}/experto`, {
+        await fetch(`${API_URL}/experto`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
                 pregunta: consultaPendiente, 
                 tipo_contacto: tipoContacto, 
                 contacto: contacto, 
-                telegram_link_token: tipoContacto === 'telegram' ? telegramLinkToken : null,
                 tiene_imagen: !!imageUrl,
                 imagen_url: imageUrl
             })
         });
-        const payloadExperto = await respuestaExperto.json().catch(() => ({}));
-        if (!respuestaExperto.ok) {
-            alert(payloadExperto.error || 'No se pudo enviar al experto.');
-            return;
-        }
     } catch (e) { console.log('Error enviando:', e); }
     document.getElementById('expertInput').classList.remove('show');
     document.getElementById('expertSubmit').classList.remove('show');
@@ -883,11 +783,9 @@ function ocultarTodo() {
     document.getElementById('expertInput').classList.remove('show');
     document.getElementById('expertSubmit').classList.remove('show');
     document.getElementById('expertImgBtn').classList.remove('show');
-    document.getElementById('telegramLinkBox').style.display = 'none';
     document.getElementById('expertImgPreview').classList.remove('show');
     document.getElementById('btnNueva').classList.remove('show');
     tipoContacto = null; expertImageFile = null;
-    resetTelegramLinkState();
 }
 
 function mostrarError(msg) { document.getElementById('errorMessage').textContent = msg; document.getElementById('errorMessage').style.display = 'block'; }
