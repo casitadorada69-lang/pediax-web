@@ -491,7 +491,13 @@ async function buscar() {
         return;
     }
     try {
-        const response = await fetch(`${API_URL}/buscar?q=${encodeURIComponent(query)}`);
+        const response = await fetch(`${API_URL}/buscar?q=${encodeURIComponent(query)}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Internal-Token': 'Clave_Secreta_PediaX_1970'
+            }
+        });
         const data = await response.json();
         if (!response.ok) throw new Error(data.error || 'Error en la búsqueda');
         mostrarResultado(data, query);
@@ -758,7 +764,10 @@ async function enviarContacto() {
     try {
         await fetch(`${API_URL}/experto`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Internal-Token': 'Clave_Secreta_PediaX_1970'
+            },
             body: JSON.stringify({ 
                 pregunta: consultaPendiente, 
                 tipo_contacto: tipoContacto, 
