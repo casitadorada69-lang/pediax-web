@@ -402,7 +402,7 @@
 </div>
 
 <script>
-const API_URL = 'https://pediax-api.casitadorada69.workers.dev';
+const API_URL = 'https://www.pediaxxx.com/api';
 let tipoContacto = null;
 let consultaPendiente = '';
 let mainImageFile = null;
@@ -494,8 +494,7 @@ async function buscar() {
         const response = await fetch(`${API_URL}/buscar?q=${encodeURIComponent(query)}`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'X-Internal-Token': 'Clave_Secreta_PediaX_1970'
+                'Content-Type': 'application/json'
             }
         });
         const data = await response.json();
@@ -765,8 +764,7 @@ async function enviarContacto() {
         await fetch(`${API_URL}/experto`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'X-Internal-Token': 'Clave_Secreta_PediaX_1970'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ 
                 pregunta: consultaPendiente, 
