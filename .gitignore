@@ -1,0 +1,16 @@
+# Secretos y variables de entorno
+.env
+.env.local
+.env.*
+actual_tokens.txt
+
+# Archivos temporales de Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
