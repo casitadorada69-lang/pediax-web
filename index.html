@@ -498,7 +498,14 @@ async function buscar() {
             }
         });
         const data = await response.json();
-        if (!response.ok) throw new Error(data.error || 'Error en la búsqueda');
+        if (!response.ok) {
+            // Si es advertencia de longitud, mostrar mensaje especial
+            if (data && data.advertencia && data.resultado) {
+                mostrarError(data.resultado);
+                return;
+            }
+            throw new Error(data.error || 'Error en la búsqueda');
+        }
         mostrarResultado(data, query);
     } catch (error) {
         mostrarError('Error al conectar con la API. Intenta de nuevo.');
