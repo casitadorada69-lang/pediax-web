@@ -48,54 +48,68 @@
     <link rel="icon" href="/favicon.png" type="image/png">
     
     <!-- JSON-LD Schema.org (para rich snippets en Google) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "PediaXXX",
-    "description": "Google te da enlaces, nosotros te damos respuestas con información verificada",
-      "url": "https://www.pediaxxx.com",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://www.pediaxxx.com/?q={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      },
-      "image": "https://www.pediaxxx.com/og-image.png",
-      "mainEntity": {
-        "@type": "Thing",
-        "name": "Enciclopedia de Entretenimiento Adulto"
-      }
-    }
-    </script>
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "PediaXXX",
+            "alternateName": "Enciclopedia del Entretenimiento Adulto",
+            "description": "Enciclopedia del entretenimiento para adultos. Información verificada sobre actrices, actores, películas y estudios.",
+            "url": "https://www.pediaxxx.com",
+            "inLanguage": "es",
+            "image": "https://www.pediaxxx.com/og-image.png"
+        }
+        </script>
     
     <!-- FAQ Schema.org -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
+        <script type="application/ld+json">
         {
-          "@type": "Question",
-          "name": "¿Es gratis PediaXXX?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sí, PediaXXX es totalmente gratis. Puedes buscar actores, actrices, películas y estudios sin costo."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Cómo contacto a un experto?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Si no encuentras la información buscada, puedes contactar a un experto por Email, WhatsApp o Telegram de forma gratuita."
-          }
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "¿Es gratis PediaXXX?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Sí, PediaXXX es totalmente gratis. Puedes buscar actores, actrices, películas y estudios sin costo."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "¿Cómo contacto a un experto?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Si no encuentras la información buscada, puedes contactar a un experto humano por Email, WhatsApp o Telegram de forma gratuita desde la sección Experto."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "¿Qué información puedo encontrar en PediaXXX?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "PediaXXX ofrece información sobre actrices, actores, películas y estudios de la industria del entretenimiento adulto, con datos verificados de fuentes como IAFD y Boobpedia."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "¿PediaXXX tiene Bot de Telegram?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Sí, PediaXXX tiene un Bot de Telegram donde puedes hacer tus consultas directamente desde la aplicación de mensajería."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "¿En qué idioma está disponible PediaXXX?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "PediaXXX está disponible en español, orientado principalmente a usuarios de Latinoamérica y España."
+                    }
+                }
+            ]
         }
-      ]
-    }
-    </script>
+        </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
