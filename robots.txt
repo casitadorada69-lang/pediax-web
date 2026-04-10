@@ -14,28 +14,34 @@ Allow: /2257.html
 Allow: /antitrafficking.html
 
 # Disallow archivos que no queremos indexar
+Crawl-delay: 1
+
+User-agent: *
+Allow: /
 Disallow: /admin/
 Disallow: /*.json
 Disallow: /api/
 
+Sitemap: https://www.pediaxxx.com/sitemap.xml
+
 # Indica el sitemap de Google
 Sitemap: https://www.pediaxxx.com/sitemap.xml
 
-# Configuración para Google
+Crawl-delay: 1
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
 
-# Configuración para Bing
+Crawl-delay: 1
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
-# Rastreo (permitir rastreadores específicos)
+Crawl-delay: 1
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
-
+Crawl-delay: 1
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
