@@ -57,7 +57,67 @@
             "description": "Enciclopedia del entretenimiento para adultos. Información verificada sobre actrices, actores, películas y estudios.",
             "url": "https://www.pediaxxx.com",
             "inLanguage": "es",
-            "image": "https://www.pediaxxx.com/og-image.png"
+            "image": "https://www.pediaxxx.com/og-image.png",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://www.pediaxxx.com/?q={search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "PediaXXX",
+                "url": "https://www.pediaxxx.com",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://www.pediaxxx.com/favicon.png"
+                }
+            },
+            "sameAs": [
+                "https://t.me/CanalPediaXXX"
+            ]
+        }
+        </script>
+
+        <!-- Schema Organización -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "PediaXXX",
+            "alternateName": "Enciclopedia del Entretenimiento Adulto",
+            "url": "https://www.pediaxxx.com",
+            "logo": "https://www.pediaxxx.com/favicon.png",
+            "image": "https://www.pediaxxx.com/og-image.png",
+            "description": "PediaXXX es una enciclopedia en español sobre el entretenimiento para adultos. Información verificada sobre actrices, actores, películas y estudios.",
+            "inLanguage": "es",
+            "areaServed": ["ES", "MX", "AR", "CO", "CL", "PE", "VE"],
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer support",
+                "availableLanguage": "Spanish"
+            },
+            "sameAs": [
+                "https://t.me/CanalPediaXXX"
+            ]
+        }
+        </script>
+
+        <!-- Schema BreadcrumbList -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Inicio",
+                    "item": "https://www.pediaxxx.com"
+                }
+            ]
         }
         </script>
     
@@ -105,6 +165,30 @@
                     "acceptedAnswer": {
                         "@type": "Answer",
                         "text": "PediaXXX está disponible en español, orientado principalmente a usuarios de Latinoamérica y España."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "¿Qué es PediaXXX?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "PediaXXX es una enciclopedia en línea en español dedicada al entretenimiento para adultos. Funciona como un buscador especializado que proporciona información verificada sobre actrices, actores, películas y estudios de la industria adulta, consultando bases de datos como IAFD y Boobpedia."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "¿Cómo funciona el buscador de PediaXXX?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "El buscador de PediaXXX funciona en tiempo real. Solo escribe el nombre de una actriz, actor, película o estudio y el sistema consulta automáticamente bases de datos verificadas para darte una respuesta precisa al instante."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "¿Dónde puedo encontrar a PediaXXX en Telegram?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "PediaXXX tiene presencia en Telegram tanto en un canal oficial como en un grupo de comunidad donde puedes hacer consultas e interactuar con otros usuarios."
                     }
                 }
             ]
